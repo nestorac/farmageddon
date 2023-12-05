@@ -12,5 +12,9 @@ config_version=5
 
 config/name="Fight 4 Fun"
 run/main_scene="res://Scenes/test_scene.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[layer_names]
+
+3d_physics/layer_1="Floor"
