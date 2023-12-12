@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://duuhqjmmnbwog"]
+[gd_scene load_steps=8 format=3 uid="uid://duuhqjmmnbwog"]
 
 [ext_resource type="Script" path="res://Scripts/Camera3D.gd" id="1_67l12"]
 [ext_resource type="PackedScene" uid="uid://qss4fufx77wv" path="res://Scenes/test_unit.tscn" id="1_bilb7"]
+[ext_resource type="Texture2D" uid="uid://d4hd21uq5bgjp" path="res://Textures/Cerditos.png" id="1_p8g8k"]
+[ext_resource type="Texture2D" uid="uid://b8ao12k06au3q" path="res://Textures/pigs_btn_pressed.png" id="2_lu4jd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7xnf"]
 albedo_color = Color(0, 0.258824, 0, 1)
@@ -43,6 +45,15 @@ anchor_bottom = 1.0
 offset_right = 208.0
 grow_vertical = 2
 color = Color(0.443137, 0.443137, 0.443137, 0.443137)
+
+[node name="TextureButton" type="TextureButton" parent="Select Unit UI"]
+layout_mode = 0
+offset_right = 201.0
+offset_bottom = 48.0
+texture_normal = ExtResource("1_p8g8k")
+texture_pressed = ExtResource("2_lu4jd")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
