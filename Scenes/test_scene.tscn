@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://duuhqjmmnbwog"]
+[gd_scene load_steps=9 format=3 uid="uid://duuhqjmmnbwog"]
 
 [ext_resource type="Script" path="res://Scripts/Camera3D.gd" id="1_67l12"]
 [ext_resource type="PackedScene" uid="uid://qss4fufx77wv" path="res://Scenes/test_unit.tscn" id="1_bilb7"]
+[ext_resource type="Script" path="res://Scripts/scene_manager.gd" id="1_p0b58"]
 [ext_resource type="Texture2D" uid="uid://d4hd21uq5bgjp" path="res://Textures/Cerditos.png" id="1_p8g8k"]
 [ext_resource type="Texture2D" uid="uid://b8ao12k06au3q" path="res://Textures/pigs_btn_pressed.png" id="2_lu4jd"]
 
@@ -16,6 +17,7 @@ size = Vector3(100, -1, 100)
 data = PackedVector3Array(-50, -0.5, 50, 50, -0.5, 50, -50, 0.5, 50, 50, -0.5, 50, 50, 0.5, 50, -50, 0.5, 50, 50, -0.5, -50, -50, -0.5, -50, 50, 0.5, -50, -50, -0.5, -50, -50, 0.5, -50, 50, 0.5, -50, 50, -0.5, 50, 50, -0.5, -50, 50, 0.5, 50, 50, -0.5, -50, 50, 0.5, -50, 50, 0.5, 50, -50, -0.5, -50, -50, -0.5, 50, -50, 0.5, -50, -50, -0.5, 50, -50, 0.5, 50, -50, 0.5, -50, 50, -0.5, 50, -50, -0.5, 50, 50, -0.5, -50, -50, -0.5, 50, -50, -0.5, -50, 50, -0.5, -50, -50, 0.5, 50, 50, 0.5, 50, -50, 0.5, -50, 50, 0.5, 50, 50, 0.5, -50, -50, 0.5, -50)
 
 [node name="Test scene" type="Node3D"]
+script = ExtResource("1_p0b58")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 62.8657, -0.515633)
@@ -46,10 +48,11 @@ offset_right = 208.0
 grow_vertical = 2
 color = Color(0.443137, 0.443137, 0.443137, 0.443137)
 
-[node name="TextureButton" type="TextureButton" parent="Select Unit UI"]
+[node name="Unit_1" type="TextureButton" parent="Select Unit UI"]
 layout_mode = 0
 offset_right = 201.0
 offset_bottom = 48.0
+toggle_mode = true
 texture_normal = ExtResource("1_p8g8k")
 texture_pressed = ExtResource("2_lu4jd")
 ignore_texture_size = true
@@ -62,4 +65,9 @@ script = ExtResource("1_67l12")
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, -100, 0)
 
-[node name="Test Unit" parent="." instance=ExtResource("1_bilb7")]
+[node name="Units Node Container" type="Node3D" parent="."]
+
+[node name="Pigs unit" parent="Units Node Container" instance=ExtResource("1_bilb7")]
+visible = false
+
+[connection signal="toggled" from="Select Unit UI/Unit_1" to="." method="_on_unit_1_toggled"]
