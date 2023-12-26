@@ -8,7 +8,7 @@ size = Vector3(4, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fer62"]
 size = Vector3(4, 1, 1)
 
-[node name="Test Unit" type="CharacterBody3D"]
+[node name="4PigsUnit" type="CharacterBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false

@@ -1,7 +1,7 @@
 extends Camera3D
 
 @onready var ray = $RayCast3D
-@onready var test_unit = $"../Units Node Container/Pigs unit"
+@onready var test_unit = $"../Units Node Container/4PigsUnit"
 
 var distance_from_camera = 100
 var is_unit_selected = false
@@ -36,4 +36,5 @@ func _input(event):
 			test_unit.position = Vector3( hit.position.x, 1, hit.position.z )
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false
+		test_unit.unit_state = test_unit.NOT_SELECTED
 		emit_signal("unit_placed")

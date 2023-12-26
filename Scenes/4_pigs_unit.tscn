@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpcm064nfn6ss"]
+
+[ext_resource type="PackedScene" uid="uid://b3elpywltfkes" path="res://Models/pig.gltf" id="1_35ety"]
+[ext_resource type="Script" path="res://Scripts/4_pigs_unit.gd" id="1_xbths"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kpud"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_i2mkj"]
+material = SubResource("StandardMaterial3D_2kpud")
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fer62"]
+size = Vector3(4, 1, 1)
+
+[node name="4PigsUnit" type="CharacterBody3D"]
+script = ExtResource("1_xbths")
+
+[node name="DecorativeTray" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_i2mkj")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500685, 0)
+shape = SubResource("BoxShape3D_fer62")
+
+[node name="pig" parent="." instance=ExtResource("1_35ety")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, -1.52379, 0.0986559, 0)
+
+[node name="pig2" parent="." instance=ExtResource("1_35ety")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, -0.486893, 0.0986559, 0)
+
+[node name="pig3" parent="." instance=ExtResource("1_35ety")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 0.491401, 0.0986559, 0)
+
+[node name="pig4" parent="." instance=ExtResource("1_35ety")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 1.49224, 0.0986559, 0)
