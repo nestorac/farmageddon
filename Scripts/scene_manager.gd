@@ -45,7 +45,7 @@ func _on_next_turn_state():
 func _on_unit_1_toggled(button_pressed):
 	if button_pressed == true:
 		camera.test_unit.show()
-		camera.test_unit.unit_state = camera.test_unit.SELECTED
+		camera.test_unit.unit_state = camera.test_unit.DEPLOY_SELECTED
 		camera.is_unit_selected = true
 		camera.is_unit_positioned = false
 	else:

@@ -4,9 +4,9 @@ extends CharacterBody3D
 
 var tray_material
 
-enum {SELECTED, NOT_SELECTED}
+enum {DEPLOY_SELECTED, DEPLOY_NOT_SELECTED, MOVEMENT_SELECTED, MOVEMENT_NOT_SELECTED}
 
-var unit_state = NOT_SELECTED
+var unit_state = DEPLOY_NOT_SELECTED
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,9 +20,16 @@ func _process(delta):
 
 func _physics_process(delta):
 	match unit_state:
-		SELECTED:
+		DEPLOY_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
 			tray_material.albedo_color = Color.GREEN
-		NOT_SELECTED:
+		DEPLOY_NOT_SELECTED:
+			tray_material = decorative_tray.get_active_material(0)
+			tray_material.albedo_color = Color.WHITE
+			
+		MOVEMENT_SELECTED:
+			tray_material = decorative_tray.get_active_material(0)
+			tray_material.albedo_color = Color.BLUE
+		MOVEMENT_NOT_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
 			tray_material.albedo_color = Color.WHITE
