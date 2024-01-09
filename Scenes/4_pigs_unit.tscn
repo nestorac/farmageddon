@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpcm064nfn6ss"]
+[gd_scene load_steps=8 format=3 uid="uid://dpcm064nfn6ss"]
 
 [ext_resource type="PackedScene" uid="uid://b3elpywltfkes" path="res://Models/pig.gltf" id="1_35ety"]
 [ext_resource type="Script" path="res://Scripts/4_pigs_unit.gd" id="1_xbths"]
@@ -12,6 +12,14 @@ size = Vector3(4, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fer62"]
 size = Vector3(4, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkoxq"]
+shading_mode = 0
+albedo_color = Color(0, 0.643137, 0.0980392, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dl0qb"]
+material = SubResource("StandardMaterial3D_gkoxq")
+size = Vector3(0.5, 1, 1)
 
 [node name="4PigsUnit" type="CharacterBody3D" groups=["Units"]]
 script = ExtResource("1_xbths")
@@ -34,3 +42,10 @@ transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 
 
 [node name="pig4" parent="." instance=ExtResource("1_35ety")]
 transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 1.49224, 0.0986559, 0)
+
+[node name="MovementGizmo" type="Node3D" parent="."]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementGizmo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266958, -0.473832)
+mesh = SubResource("BoxMesh_dl0qb")

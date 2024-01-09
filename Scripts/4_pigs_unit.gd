@@ -1,8 +1,10 @@
 extends CharacterBody3D
 
 @onready var decorative_tray = $DecorativeTray
+@onready var movement_gizmo = $MovementGizmo
 
 var tray_material
+var movement_target = Vector3.ZERO
 
 enum {DEPLOY_SELECTED, DEPLOY_NOT_SELECTED, MOVEMENT_SELECTED, MOVEMENT_NOT_SELECTED}
 
@@ -29,7 +31,10 @@ func _physics_process(delta):
 			
 		MOVEMENT_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
+			movement_gizmo.show()
 			tray_material.albedo_color = Color.BLUE
+			movement_gizmo.look_at(movement_target, Vector3.UP)
 		MOVEMENT_NOT_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
+			movement_gizmo.hide()
 			tray_material.albedo_color = Color.WHITE
