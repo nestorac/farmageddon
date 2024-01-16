@@ -48,4 +48,5 @@ visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MovementGizmo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266958, -0.473832)
+cast_shadow = 0
 mesh = SubResource("BoxMesh_dl0qb")
