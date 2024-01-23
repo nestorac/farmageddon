@@ -16,7 +16,7 @@ func _ready():
 	ui_node.connect("next_turn_state", _on_next_turn_state)
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match turn_state:
 		DEPLOYMENT:
 			turn_state_label.text = "Deployment"
@@ -30,13 +30,13 @@ func _physics_process(delta):
 			turn_state_label.text = "Attack"
 
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 
 func _on_next_turn_state():
-	if turn_state == 3:
-		turn_state = 0
+	if turn_state == ATTACK:
+		turn_state = DEPLOYMENT
 	else:
 		turn_state += 1
 	print(turn_state)

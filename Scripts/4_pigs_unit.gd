@@ -23,10 +23,10 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match unit_state:
 		DEPLOY_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
