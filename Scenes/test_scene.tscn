@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://duuhqjmmnbwog"]
+[gd_scene load_steps=11 format=3 uid="uid://duuhqjmmnbwog"]
 
 [ext_resource type="Script" path="res://Scripts/Camera3D.gd" id="1_67l12"]
 [ext_resource type="Script" path="res://Scripts/scene_manager.gd" id="1_p0b58"]
 [ext_resource type="Texture2D" uid="uid://d4hd21uq5bgjp" path="res://Textures/Cerditos.png" id="1_p8g8k"]
 [ext_resource type="Texture2D" uid="uid://b8ao12k06au3q" path="res://Textures/pigs_btn_pressed.png" id="2_lu4jd"]
 [ext_resource type="PackedScene" uid="uid://dpcm064nfn6ss" path="res://Scenes/4_pigs_unit.tscn" id="5_f7s5y"]
+[ext_resource type="PackedScene" uid="uid://d3omlsfokgwvt" path="res://Scenes/destination_icon.tscn" id="5_rn5fs"]
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="6_ht7n4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7xnf"]
@@ -63,12 +64,10 @@ stretch_mode = 0
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
 script = ExtResource("1_67l12")
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, -100, 0)
-
 [node name="Units Node Container" type="Node3D" parent="."]
 
 [node name="4PigsUnit" parent="Units Node Container" instance=ExtResource("5_f7s5y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425639, 0)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -103,6 +102,9 @@ offset_top = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Next"
+
+[node name="DestinationIcon" parent="." instance=ExtResource("5_rn5fs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [connection signal="toggled" from="Select Unit UI/Unit_1" to="." method="_on_unit_1_toggled"]
 [connection signal="button_up" from="UI/NextStateButton" to="UI" method="_on_next_state_button_button_up"]

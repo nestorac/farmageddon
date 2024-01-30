@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var movement_gizmo = $MovementGizmo
 
 @onready var max_movement = 10.0
+@onready var gizmo_end = $MovementGizmo/GizmoEnd
 
 var mouse_target = Vector3.ZERO
 var movement_target = Vector3.ZERO
@@ -53,13 +54,12 @@ func _physics_process(_delta):
 			tray_material.albedo_color = Color.WHITE
 		
 		IN_MOVEMENT:
-			#print ("troop moving.")
-			#print (movement_target)
 			move_to (movement_target)
+			movement_gizmo.hide()
 			
 
 func move_to(target):
-	var direction = (transform.basis * target).normalized()
+	var direction = (target - global_position).normalized()
 	
 	if direction:
 		velocity.x = direction.x * SPEED
