@@ -75,8 +75,10 @@ func _input(event):
 			var space_state = get_world_3d().get_direct_space_state()
 			var query = PhysicsRayQueryParameters3D.create(from,to)
 			var hit = space_state.intersect_ray(query)
+			
+			test_unit.movement_left -= hit.position.distance_to(test_unit.position)
 		
-			print ("Right click in movement!", hit)
+			#print ("Right click in movement!", hit)
 			test_unit.unit_state = test_unit.IN_MOVEMENT
 			test_unit.movement_target = test_unit.gizmo_end.global_position
 			destination_icon.global_position = test_unit.gizmo_end.global_position
