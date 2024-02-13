@@ -70,6 +70,8 @@ func _input(event):
 	
 	if event.is_action_pressed("r_click"):
 		if scene_manager.turn_state == scene_manager.MOVEMENT:
+			if not test_unit.movement_gizmo.visible:
+				return
 			var from = project_ray_origin((event.position))
 			var to = from + project_ray_normal(event.position) * distance_from_camera
 			var space_state = get_world_3d().get_direct_space_state()
@@ -82,6 +84,8 @@ func _input(event):
 			test_unit.unit_state = test_unit.IN_MOVEMENT
 			test_unit.movement_target = test_unit.gizmo_end.global_position
 			destination_icon.global_position = test_unit.gizmo_end.global_position
+			destination_icon.show()
+			destination_icon.monitoring = true
 			
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false

@@ -35,12 +35,15 @@ func _physics_process(_delta):
 		DEPLOY_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
 			tray_material.albedo_color = Color.GREEN
+			$DEBUGLabel3D.text = "DEPLOY_SELECTED"
 			
 		DEPLOY_NOT_SELECTED:
 			tray_material = decorative_tray.get_active_material(0)
 			tray_material.albedo_color = Color.WHITE
+			$DEBUGLabel3D.text = "DEPLOY_NOT_SELECTED"
 			
 		MOVEMENT_SELECTED:
+			$DEBUGLabel3D.text = "MOVEMENT_SELECTED"
 			print ("movement_left: ", movement_left)
 			tray_material = decorative_tray.get_active_material(0)
 			movement_gizmo.show()
@@ -57,11 +60,13 @@ func _physics_process(_delta):
 			movement_gizmo.rotation_degrees.x = 0
 			
 		MOVEMENT_NOT_SELECTED:
+			$DEBUGLabel3D.text = "MOVEMENT_NOT_SELECTED"
 			tray_material = decorative_tray.get_active_material(0)
 			movement_gizmo.hide()
 			tray_material.albedo_color = Color.WHITE
 		
 		IN_MOVEMENT:
+			$DEBUGLabel3D.text = "IN_MOVEMENT"
 			move_to (movement_target)
 			movement_gizmo.hide()
 			

@@ -59,3 +59,9 @@ mesh = SubResource("BoxMesh_dl0qb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0233716, -1.03215)
 visible = false
 mesh = SubResource("BoxMesh_ieh8t")
+
+[node name="DEBUGLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92546, -0.45279)
+pixel_size = 0.0145
+billboard = 1
+text = "Cualquier cosa."
