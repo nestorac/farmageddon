@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhk2wxd2cooy2"]
+
+[ext_resource type="PackedScene" uid="uid://butcmeartcyig" path="res://Scenes/panel.tscn" id="1_c2fxj"]
+
+[node name="ActionBar" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.321569, 0.243137, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="ActionUI" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI2" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI3" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI4" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI5" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI6" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI7" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI8" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI9" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
+
+[node name="ActionUI10" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
+layout_mode = 2
