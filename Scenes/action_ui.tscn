@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://butcmeartcyig"]
+[gd_scene load_steps=3 format=3 uid="uid://butcmeartcyig"]
 
 [ext_resource type="Texture2D" uid="uid://bh24nh3p0um55" path="res://icon.svg" id="1_5ijfe"]
+[ext_resource type="Script" path="res://Scripts/action_ui.gd" id="1_sbk8s"]
 
 [node name="ActionUI" type="Panel"]
 clip_contents = true
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_sbk8s")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -18,3 +20,9 @@ grow_vertical = 2
 texture = ExtResource("1_5ijfe")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="DebugLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 61.0
+offset_bottom = 35.0
+text = "Debug"

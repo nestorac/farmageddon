@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bhk2wxd2cooy2"]
 
-[ext_resource type="PackedScene" uid="uid://butcmeartcyig" path="res://Scenes/panel.tscn" id="1_c2fxj"]
+[ext_resource type="Script" path="res://Scripts/action_bar.gd" id="1_psmd8"]
 
 [node name="ActionBar" type="Control"]
 layout_mode = 3
@@ -9,6 +9,7 @@ anchor_right = 1.0
 offset_bottom = 64.0
 grow_horizontal = 2
 size_flags_vertical = 3
+script = ExtResource("1_psmd8")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -25,32 +26,12 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
-[node name="ActionUI" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 992.0
+offset_top = 65.0
+offset_right = 1148.0
+offset_bottom = 118.0
+text = "Debug Play Actions"
 
-[node name="ActionUI2" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI3" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI4" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI5" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI6" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI7" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI8" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI9" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
-
-[node name="ActionUI10" parent="HBoxContainer" instance=ExtResource("1_c2fxj")]
-layout_mode = 2
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
