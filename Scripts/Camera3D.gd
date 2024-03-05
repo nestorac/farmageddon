@@ -37,13 +37,13 @@ func _input(event):
 				# collider will be the node you hit
 				test_unit.position = Vector3( hit.position.x, 1, hit.position.z )
 				
-		elif scene_manager.turn_state == scene_manager.MOVEMENT:
+		elif scene_manager.turn_state == scene_manager.RESOLUTION:
 			test_unit.mouse_target = hit.position
 			#print ("Mouse movement.")
 	if event.is_action_pressed("l_click"):
 		if scene_manager.turn_state == scene_manager.DEPLOYMENT:
 			print("Click on deployment.")
-		elif scene_manager.turn_state == scene_manager.MOVEMENT:
+		elif scene_manager.turn_state == scene_manager.COMMANDS:
 			var from = project_ray_origin((event.position))
 			var to = from + project_ray_normal(event.position) * distance_from_camera
 			
@@ -63,13 +63,11 @@ func _input(event):
 					var units = get_tree().get_nodes_in_group("Units")
 					for unit in units:
 						unit.unit_state = unit.MOVEMENT_NOT_SELECTED
-		elif scene_manager.turn_state == scene_manager.SPELLS:
-			print("Click on spells.")
-		elif scene_manager.turn_state == scene_manager.ATTACK:
+		elif scene_manager.turn_state == scene_manager.RESOLUTION:
 			print("Click on attack.")
 	
 	if event.is_action_pressed("r_click"):
-		if scene_manager.turn_state == scene_manager.MOVEMENT:
+		if scene_manager.turn_state == scene_manager.COMMANDS:
 			if not test_unit.movement_gizmo.visible:
 				return
 			var from = project_ray_origin((event.position))

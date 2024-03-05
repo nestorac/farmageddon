@@ -6,7 +6,7 @@ extends Node3D
 @onready var turn_state_label = $UI/TurnStateLabel
 @onready var ui_node = $UI
 
-enum {DEPLOYMENT, MOVEMENT, SPELLS, ATTACK}
+enum {DEPLOYMENT, COMMANDS, RESOLUTION}
 
 var turn_state = DEPLOYMENT
 
@@ -21,13 +21,11 @@ func _physics_process(_delta):
 		DEPLOYMENT:
 			turn_state_label.text = "Deployment"
 			select_units_ui.show()
-		MOVEMENT:
-			turn_state_label.text = "Movement"
+		COMMANDS:
+			turn_state_label.text = "Commands"
 			select_units_ui.hide()
-		SPELLS:
-			turn_state_label.text = "Spells"
-		ATTACK:
-			turn_state_label.text = "Attack"
+		RESOLUTION:
+			turn_state_label.text = "Resolution"
 
 
 func _process(_delta):
@@ -35,11 +33,9 @@ func _process(_delta):
 
 
 func _on_next_turn_state():
-	if turn_state == ATTACK:
-		turn_state = DEPLOYMENT
-	else:
-		turn_state += 1
-	print(turn_state)
+	turn_state += 1
+	if turn_state > RESOLUTION:
+		turn_state = DEPLOYMENTtc
 
 
 func _on_unit_1_toggled(button_pressed):
