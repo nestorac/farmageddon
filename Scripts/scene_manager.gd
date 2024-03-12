@@ -35,7 +35,7 @@ func _process(_delta):
 func _on_next_turn_state():
 	turn_state += 1
 	if turn_state > RESOLUTION:
-		turn_state = DEPLOYMENTtc
+		turn_state = DEPLOYMENT
 
 
 func _on_unit_1_toggled(button_pressed):

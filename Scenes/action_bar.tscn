@@ -34,4 +34,21 @@ offset_right = 1148.0
 offset_bottom = 118.0
 text = "Debug Play Actions"
 
+[node name="DebugButtons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 68.0
+offset_right = 245.0
+offset_bottom = 226.0
+
+[node name="ButtonMovement" type="Button" parent="DebugButtons"]
+layout_mode = 2
+text = "Movement"
+
+[node name="ButtonSpell" type="Button" parent="DebugButtons"]
+layout_mode = 2
+text = "Spell"
+
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="DebugButtons/ButtonMovement" to="." method="_on_button_movement_button_up"]
+[connection signal="button_up" from="DebugButtons/ButtonSpell" to="." method="_on_button_spell_button_up"]
