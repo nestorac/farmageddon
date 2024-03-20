@@ -5,6 +5,7 @@ const MAX_ACTIONS = 15
 var action = load("res://Scenes/action_ui.tscn")
 
 @onready var h_box_container = $HBoxContainer
+@onready var main_game = $".."
 
 func add_action(action_name:String, type:String, unit_id:int):
 	if h_box_container.get_child_count() >= MAX_ACTIONS:
@@ -13,7 +14,20 @@ func add_action(action_name:String, type:String, unit_id:int):
 	action_inst.action_name = action_name
 	action_inst.action_type = type
 	action_inst.unit_id = unit_id
-	h_box_container.add_child(action_inst)
+	match action_inst.action_type:
+		"movement":
+			main_game.actions.movements.append(action_inst)
+			h_box_container.get_child(0).add_child(action_inst)
+		"charge":
+			main_game.actions.charges.append(action_inst)
+			h_box_container.get_child(1).add_child(action_inst)
+		"distance_attack":
+			main_game.actions.distance_attacks.append(action_inst)
+			h_box_container.get_child(2).add_child(action_inst)
+		"spell":
+			main_game.actions.spells.append(action_inst)
+			h_box_container.get_child(3).add_child(action_inst)
+		
 
 # For debugging.
 #func _input(event):
@@ -22,10 +36,27 @@ func add_action(action_name:String, type:String, unit_id:int):
 
 
 func _on_button_button_up():
-	#var actions_queued = h_box_container.get_children()
-	for action_queued in h_box_container.get_children():
+	# Movements
+	for action_queued in h_box_container.get_child(0).get_children():
 		print(action_queued.name, " ", action_queued.action_name)
 		action_queued.queue_free()
+		
+	# Charges
+	for action_queued in h_box_container.get_child(1).get_children():
+		print(action_queued.name, " ", action_queued.action_name)
+		action_queued.queue_free()
+		
+	# Distance attacks
+	for action_queued in h_box_container.get_child(2).get_children():
+		print(action_queued.name, " ", action_queued.action_name)
+		action_queued.queue_free()
+		
+	# Spells
+	for action_queued in h_box_container.get_child(3).get_children():
+		print(action_queued.name, " ", action_queued.action_name)
+		action_queued.queue_free()
+		
+	
 		
 #TODO
 ## Add custom actions: attack, walk, run...

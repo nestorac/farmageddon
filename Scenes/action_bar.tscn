@@ -26,6 +26,18 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
+[node name="Movements" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Charges" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="DistanceAttacks" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Spells" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
 offset_left = 992.0
