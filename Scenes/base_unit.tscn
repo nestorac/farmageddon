@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjt23vvc5jj4f"]
+
+[ext_resource type="Script" path="res://Scripts/base_unit.gd" id="1_bl0si"]
+[ext_resource type="PackedScene" uid="uid://b3elpywltfkes" path="res://Models/pig.gltf" id="2_oaxbs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kpud"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_i2mkj"]
+material = SubResource("StandardMaterial3D_2kpud")
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fer62"]
+size = Vector3(4, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkoxq"]
+shading_mode = 0
+albedo_color = Color(0, 0.643137, 0.0980392, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dl0qb"]
+material = SubResource("StandardMaterial3D_gkoxq")
+size = Vector3(0.5, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ieh8t"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="BaseUnit" type="CharacterBody3D" groups=["Units"]]
+motion_mode = 1
+script = ExtResource("1_bl0si")
+
+[node name="DecorativeTray" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_i2mkj")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500685, 0)
+shape = SubResource("BoxShape3D_fer62")
+
+[node name="pig" parent="." instance=ExtResource("2_oaxbs")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, -1.52379, 0.0986559, 0)
+
+[node name="pig2" parent="." instance=ExtResource("2_oaxbs")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, -0.486893, 0.0986559, 0)
+
+[node name="pig3" parent="." instance=ExtResource("2_oaxbs")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 0.491401, 0.0986559, 0)
+
+[node name="pig4" parent="." instance=ExtResource("2_oaxbs")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 1.49224, 0.0986559, 0)
+
+[node name="MovementGizmo" type="Node3D" parent="."]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementGizmo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266958, -0.473832)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_dl0qb")
+
+[node name="GizmoEnd" type="MeshInstance3D" parent="MovementGizmo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0233716, -1.03215)
+visible = false
+mesh = SubResource("BoxMesh_ieh8t")
+
+[node name="DEBUGLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92546, -0.45279)
+pixel_size = 0.0145
+billboard = 1
+text = "Cualquier cosa."
