@@ -22,7 +22,7 @@ var str:int = 0 # 1..100
 var dex:int = 0 # 1..100
 var intl = 0 # 1..100
 var def = 0 # 1..100
-var mov_spd = 5 # 1..inf
+var mov_spd = 0 # 0..10
 
 # Status ailments
 var fear = 0 # 1..inf
@@ -47,29 +47,33 @@ func _ready():
 func initialize_unit_by_type():
 	match unit_type:
 		"Infantry":
-			str = 0 # 1..100
-			dex = 0 # 1..100
-			intl = 0 # 1..100
-			def = 0 # 1..100
-			mov_spd = 5 # 1..inf
+			str = 80 # 1..100
+			dex = 50 # 1..100
+			intl = 50 # 1..100
+			def = 60 # 1..100
+			mov_spd = 5 # 0..10
+			$DEBUGLabel3D.text = "Infantry"
 		"Chivalry":
-			str = 0 # 1..100
-			dex = 0 # 1..100
-			intl = 0 # 1..100
-			def = 0 # 1..100
-			mov_spd = 5 # 1..inf
+			str = 100 # 1..100
+			dex = 20 # 1..100
+			intl = 50 # 1..100
+			def = 40 # 1..100
+			mov_spd = 10 # 0..10
+			$DEBUGLabel3D.text = "Chivalry"
 		"Archers":
-			str = 0 # 1..100
-			dex = 0 # 1..100
-			intl = 0 # 1..100
-			def = 0 # 1..100
-			mov_spd = 5 # 1..inf
-		"Wizards":
-			str = 0 # 1..100
-			dex = 0 # 1..100
-			intl = 0 # 1..100
-			def = 0 # 1..100
-			mov_spd = 5 # 1..inf
+			str = 30 # 1..100
+			dex = 100 # 1..100
+			intl = 50 # 1..100
+			def = 30 # 1..100
+			mov_spd = 5 # 0..10
+			$DEBUGLabel3D.text = "Archers"
+		"Wizard":
+			str = 20 # 1..100
+			dex = 50 # 1..100
+			intl = 100 # 1..100
+			def = 20 # 1..100
+			mov_spd = 3 # 0..10
+			$DEBUGLabel3D.text = "Wizard"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

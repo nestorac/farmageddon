@@ -25,6 +25,7 @@ size = Vector3(0.5, 1, 1)
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="BaseUnit" type="CharacterBody3D" groups=["Units"]]
+transform = Transform3D(0.999821, 0, -0.0189008, 0, 1, 0, 0.0189008, 0, 0.999821, 0, 0, -0.629376)
 motion_mode = 1
 script = ExtResource("1_bl0si")
 
