@@ -5,6 +5,7 @@ extends Node3D
 @onready var unit_1 = $"Select Unit UI/Unit_1"
 @onready var turn_state_label = $UI/TurnStateLabel
 @onready var ui_node = $UI
+@onready var deploy_buttons_container:VBoxContainer = $"Select Unit UI/BackgroundWindow/VBoxContainer"
 
 enum {DEPLOYMENT, COMMANDS, RESOLUTION}
 
@@ -36,19 +37,20 @@ func _on_next_turn_state():
 	turn_state += 1
 	if turn_state > RESOLUTION:
 		turn_state = DEPLOYMENT
-
-
-func _on_unit_1_toggled(button_pressed):
-	if button_pressed == true:
-		camera.unit_mesh_ghost.show()
-		camera.is_unit_selected = true
-		camera.is_unit_positioned = false
-	else:
-		if camera.is_unit_positioned:
-			return
-		camera.unit_mesh_ghost.hide()
-		camera.is_unit_selected = false
+#
+#
+#func _on_unit_1_toggled(button_pressed):
+	#if button_pressed == true:
+		#camera.unit_mesh_ghost.show()
+		#camera.is_unit_selected = true
+		#camera.is_unit_positioned = false
+	#else:
+		#if camera.is_unit_positioned:
+			#return
+		#camera.unit_mesh_ghost.hide()
+		#camera.is_unit_selected = false
 
 func _on_unit_placed():
 	camera.is_unit_positioned = true
-	unit_1.button_pressed = false
+	for child_button in deploy_buttons_container.get_children():
+		child_button.button_pressed = false

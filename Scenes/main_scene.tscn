@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://b06qil0jy7lbk"]
+[gd_scene load_steps=15 format=3 uid="uid://b06qil0jy7lbk"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene_manager.gd" id="1_m7d72"]
-[ext_resource type="Texture2D" uid="uid://d4hd21uq5bgjp" path="res://Textures/Cerditos.png" id="2_lmqcq"]
-[ext_resource type="Texture2D" uid="uid://b8ao12k06au3q" path="res://Textures/pigs_btn_pressed.png" id="3_748n1"]
+[ext_resource type="PackedScene" uid="uid://c665ans4ss0yc" path="res://Scenes/deploy_unit_button.tscn" id="2_tonhx"]
 [ext_resource type="Script" path="res://Scripts/main_camera.gd" id="4_jfmjx"]
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="6_sw238"]
 [ext_resource type="PackedScene" uid="uid://d3omlsfokgwvt" path="res://Scenes/destination_icon.tscn" id="7_l0ybc"]
@@ -17,7 +16,25 @@ size = Vector3(100, -1, 100)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7aaou"]
 data = PackedVector3Array(-50, -0.5, 50, 50, -0.5, 50, -50, 0.5, 50, 50, -0.5, 50, 50, 0.5, 50, -50, 0.5, 50, 50, -0.5, -50, -50, -0.5, -50, 50, 0.5, -50, -50, -0.5, -50, -50, 0.5, -50, 50, 0.5, -50, 50, -0.5, 50, 50, -0.5, -50, 50, 0.5, 50, 50, -0.5, -50, 50, 0.5, -50, 50, 0.5, 50, -50, -0.5, -50, -50, -0.5, 50, -50, 0.5, -50, -50, -0.5, 50, -50, 0.5, 50, -50, 0.5, -50, 50, -0.5, 50, -50, -0.5, 50, 50, -0.5, -50, -50, -0.5, 50, -50, -0.5, -50, 50, -0.5, -50, -50, 0.5, 50, 50, 0.5, 50, -50, 0.5, -50, 50, 0.5, 50, 50, 0.5, -50, -50, 0.5, -50)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8t0tu"]
+albedo_color = Color(0.768627, 0.384314, 0.670588, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_o1ghu"]
+material = SubResource("StandardMaterial3D_8t0tu")
+size = Vector3(4, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovort"]
+albedo_color = Color(0.00784314, 0.384314, 0.670588, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_86b2h"]
+material = SubResource("StandardMaterial3D_ovort")
+size = Vector3(4, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcs6e"]
+albedo_color = Color(0.768627, 0.384314, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l3anc"]
+material = SubResource("StandardMaterial3D_kcs6e")
 size = Vector3(4, 1, 1)
 
 [node name="Main Scene" type="Node3D"]
@@ -44,7 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="ColorRect" type="ColorRect" parent="Select Unit UI"]
+[node name="BackgroundWindow" type="ColorRect" parent="Select Unit UI"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -52,24 +69,52 @@ offset_right = 208.0
 grow_vertical = 2
 color = Color(0.443137, 0.443137, 0.443137, 0.443137)
 
-[node name="Unit_1" type="TextureButton" parent="Select Unit UI"]
-layout_mode = 0
-offset_right = 201.0
-offset_bottom = 48.0
-toggle_mode = true
-texture_normal = ExtResource("2_lmqcq")
-texture_pressed = ExtResource("3_748n1")
-ignore_texture_size = true
-stretch_mode = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="Select Unit UI/BackgroundWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeployUnitButton" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+stretch_mode = 4
+camera = NodePath("../../../../MainCamera")
+
+[node name="DeployUnitButton2" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+stretch_mode = 4
+camera = NodePath("../../../../MainCamera")
+
+[node name="DeployUnitButton3" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+stretch_mode = 4
+camera = NodePath("../../../../MainCamera")
+
+[node name="DeployUnitButton4" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+stretch_mode = 4
+camera = NodePath("../../../../MainCamera")
 
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
 script = ExtResource("4_jfmjx")
 
-[node name="Units Node Container" type="Node3D" parent="."]
+[node name="UnitsNodeContainer" type="Node3D" parent="."]
 
-[node name="PlaceholderUnitGhost" type="MeshInstance3D" parent="Units Node Container"]
+[node name="InfantryGhost" type="MeshInstance3D" parent="UnitsNodeContainer"]
 mesh = SubResource("BoxMesh_o1ghu")
+
+[node name="ArcheryGhost" type="MeshInstance3D" parent="UnitsNodeContainer"]
+mesh = SubResource("BoxMesh_86b2h")
+
+[node name="ChivalryGhost" type="MeshInstance3D" parent="UnitsNodeContainer"]
+mesh = SubResource("BoxMesh_l3anc")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -108,5 +153,8 @@ text = "Next"
 [node name="DestinationIcon" parent="." instance=ExtResource("7_l0ybc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
-[connection signal="toggled" from="Select Unit UI/Unit_1" to="." method="_on_unit_1_toggled"]
+[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton" method="_on_toggled"]
+[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton2" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton2" method="_on_toggled"]
+[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton3" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton3" method="_on_toggled"]
+[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton4" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton4" method="_on_toggled"]
 [connection signal="button_up" from="UI/NextStateButton" to="UI" method="_on_next_state_button_button_up"]

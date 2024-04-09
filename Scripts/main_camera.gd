@@ -2,7 +2,7 @@ extends Camera3D
 
 @onready var scene_manager = $".."
 @onready var ray = $RayCast3D
-@onready var unit_mesh_ghost = $"../Units Node Container/PlaceholderUnitGhost"
+@onready var unit_mesh_ghost = $"../UnitsNodeContainer/PlaceholderUnitGhost"
 @onready var destination_icon = $"../DestinationIcon"
 
 var distance_from_camera = 100
@@ -88,3 +88,6 @@ func _input(event):
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false
 		emit_signal("unit_placed")
+
+func set_unit_mesh_ghost(unit_type:String):
+	unit_mesh_ghost = get_node("../UnitsNodeContainer/" + unit_type + "Ghost")
