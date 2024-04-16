@@ -2,14 +2,16 @@ extends Camera3D
 
 @onready var scene_manager = $".."
 @onready var ray = $RayCast3D
-@onready var unit_mesh_ghost = $"../UnitsNodeContainer/PlaceholderUnitGhost"
+@onready var unit_mesh_ghost = $"../UnitsGhostContainer/PlaceholderUnitGhost"
 @onready var destination_icon = $"../DestinationIcon"
 
 var distance_from_camera = 100
 var is_unit_selected = false
 var is_unit_positioned = false
+var picked_unit_type:String = "None"
 
 signal unit_placed
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -87,7 +89,9 @@ func _input(event):
 			
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false
-		emit_signal("unit_placed")
+		unit_mesh_ghost.hide()
+		emit_signal("unit_placed", picked_unit_type, unit_mesh_ghost.global_position)
 
-func set_unit_mesh_ghost(unit_type:String):
-	unit_mesh_ghost = get_node("../UnitsNodeContainer/" + unit_type + "Ghost")
+func set_unit_mesh_ghost(unit_type:String) -> void:
+	picked_unit_type = unit_type
+	unit_mesh_ghost = get_node("../UnitsGhostContainer/" + unit_type + "Ghost")

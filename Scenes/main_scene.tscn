@@ -37,8 +37,9 @@ albedo_color = Color(0.768627, 0.384314, 0, 1)
 material = SubResource("StandardMaterial3D_kcs6e")
 size = Vector3(4, 1, 1)
 
-[node name="Main Scene" type="Node3D"]
+[node name="Main Scene" type="Node3D" node_paths=PackedStringArray("units_node_container")]
 script = ExtResource("1_m7d72")
+units_node_container = NodePath("UnitsNodeContainer")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 62.8657, -0.515633)
@@ -101,20 +102,31 @@ size_flags_vertical = 3
 stretch_mode = 4
 camera = NodePath("../../../../MainCamera")
 
+[node name="CashLabel" type="Label" parent="Select Unit UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0€"
+horizontal_alignment = 2
+
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
 script = ExtResource("4_jfmjx")
 
-[node name="UnitsNodeContainer" type="Node3D" parent="."]
+[node name="UnitsGhostContainer" type="Node3D" parent="."]
 
-[node name="InfantryGhost" type="MeshInstance3D" parent="UnitsNodeContainer"]
+[node name="InfantryGhost" type="MeshInstance3D" parent="UnitsGhostContainer"]
 mesh = SubResource("BoxMesh_o1ghu")
 
-[node name="ArcheryGhost" type="MeshInstance3D" parent="UnitsNodeContainer"]
+[node name="ArcheryGhost" type="MeshInstance3D" parent="UnitsGhostContainer"]
 mesh = SubResource("BoxMesh_86b2h")
 
-[node name="ChivalryGhost" type="MeshInstance3D" parent="UnitsNodeContainer"]
+[node name="ChivalryGhost" type="MeshInstance3D" parent="UnitsGhostContainer"]
 mesh = SubResource("BoxMesh_l3anc")
+
+[node name="UnitsNodeContainer" type="Node3D" parent="."]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
