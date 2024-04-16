@@ -53,7 +53,7 @@ mesh = SubResource("BoxMesh_qiqt7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7aaou")
 
-[node name="Select Unit UI" type="Control" parent="."]
+[node name="SelectUnitUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="BackgroundWindow" type="ColorRect" parent="Select Unit UI"]
+[node name="BackgroundWindow" type="ColorRect" parent="SelectUnitUI"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -70,7 +70,7 @@ offset_right = 208.0
 grow_vertical = 2
 color = Color(0.443137, 0.443137, 0.443137, 0.443137)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Select Unit UI/BackgroundWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectUnitUI/BackgroundWindow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,31 +78,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DeployUnitButton" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+[node name="DeployUnitButton" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
 layout_mode = 2
 size_flags_vertical = 3
 stretch_mode = 4
 camera = NodePath("../../../../MainCamera")
 
-[node name="DeployUnitButton2" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+[node name="DeployUnitButton2" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
 layout_mode = 2
 size_flags_vertical = 3
 stretch_mode = 4
 camera = NodePath("../../../../MainCamera")
 
-[node name="DeployUnitButton3" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+[node name="DeployUnitButton3" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
 layout_mode = 2
 size_flags_vertical = 3
 stretch_mode = 4
 camera = NodePath("../../../../MainCamera")
 
-[node name="DeployUnitButton4" parent="Select Unit UI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+[node name="DeployUnitButton4" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
 layout_mode = 2
 size_flags_vertical = 3
 stretch_mode = 4
 camera = NodePath("../../../../MainCamera")
 
-[node name="CashLabel" type="Label" parent="Select Unit UI"]
+[node name="CashLabel" type="Label" parent="SelectUnitUI"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -165,8 +165,8 @@ text = "Next"
 [node name="DestinationIcon" parent="." instance=ExtResource("7_l0ybc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
-[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton" method="_on_toggled"]
-[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton2" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton2" method="_on_toggled"]
-[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton3" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton3" method="_on_toggled"]
-[connection signal="toggled" from="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton4" to="Select Unit UI/BackgroundWindow/VBoxContainer/DeployUnitButton4" method="_on_toggled"]
+[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" method="_on_toggled"]
+[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" method="_on_toggled"]
+[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" method="_on_toggled"]
+[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton4" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton4" method="_on_toggled"]
 [connection signal="button_up" from="UI/NextStateButton" to="UI" method="_on_next_state_button_button_up"]

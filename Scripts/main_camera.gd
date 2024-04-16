@@ -1,8 +1,7 @@
 extends Camera3D
 
 @onready var scene_manager = $".."
-@onready var ray = $RayCast3D
-@onready var unit_mesh_ghost = $"../UnitsGhostContainer/PlaceholderUnitGhost"
+@onready var unit_mesh_ghost = $"../UnitsGhostContainer/InfantryGhost"
 @onready var destination_icon = $"../DestinationIcon"
 
 var distance_from_camera = 100

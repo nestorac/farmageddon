@@ -18,7 +18,7 @@ var movement_target = Vector3.ZERO
 var tray_material
 
 # Stats
-var str:int = 0 # 1..100
+var strength:int = 0 # 1..100
 var dex:int = 0 # 1..100
 var intl = 0 # 1..100
 var def = 0 # 1..100
@@ -48,7 +48,7 @@ func _ready():
 func initialize_unit_by_type():
 	match unit_type:
 		"Infantry":
-			str = 80 # 1..100
+			strength = 80 # 1..100
 			dex = 50 # 1..100
 			intl = 50 # 1..100
 			def = 60 # 1..100
@@ -56,7 +56,7 @@ func initialize_unit_by_type():
 			unit_price = 50
 			$DEBUGLabel3D.text = "Infantry"
 		"Chivalry":
-			str = 100 # 1..100
+			strength = 100 # 1..100
 			dex = 20 # 1..100
 			intl = 50 # 1..100
 			def = 40 # 1..100
@@ -64,7 +64,7 @@ func initialize_unit_by_type():
 			unit_price = 100
 			$DEBUGLabel3D.text = "Chivalry"
 		"Archery":
-			str = 30 # 1..100
+			strength = 30 # 1..100
 			dex = 100 # 1..100
 			intl = 50 # 1..100
 			def = 30 # 1..100
@@ -72,7 +72,7 @@ func initialize_unit_by_type():
 			unit_price = 100
 			$DEBUGLabel3D.text = "Archery"
 		"Wizards":
-			str = 20 # 1..100
+			strength = 20 # 1..100
 			dex = 50 # 1..100
 			intl = 100 # 1..100
 			def = 20 # 1..100

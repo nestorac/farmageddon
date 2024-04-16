@@ -1,19 +1,18 @@
 extends Node3D
 
 @onready var camera = $MainCamera
-@onready var select_units_ui = $"Select Unit UI"
-@onready var unit_1 = $"Select Unit UI/Unit_1"
+@onready var select_units_ui = $"SelectUnitUI"
 @onready var turn_state_label = $UI/TurnStateLabel
 @onready var ui_node = $UI
-@onready var deploy_buttons_container:VBoxContainer = $"Select Unit UI/BackgroundWindow/VBoxContainer"
-@onready var cash_label:Label = $"Select Unit UI/CashLabel"
+@onready var deploy_buttons_container:VBoxContainer = $"SelectUnitUI/BackgroundWindow/VBoxContainer"
+@onready var cash_label:Label = $"SelectUnitUI/CashLabel"
 
 @export var units_node_container:Node3D
 
 enum {DEPLOYMENT, COMMANDS, RESOLUTION}
 
 var player_cash:int = 1000
-var turn_state = DEPLOYMENT
+var turn_state = int(DEPLOYMENT)
 var loaded_base_unit = load ("res://Scenes/base_unit.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -42,8 +41,8 @@ func _process(_delta):
 
 func _on_next_turn_state():
 	turn_state += 1
-	if turn_state > RESOLUTION:
-		turn_state = DEPLOYMENT
+	if turn_state > int(RESOLUTION):
+		turn_state = int(DEPLOYMENT)
 #
 #
 #func _on_unit_1_toggled(button_pressed):
@@ -64,8 +63,8 @@ func _on_unit_placed(unit_type_holding:String, ghost_position:Vector3):
 	print (unit_type_holding)
 	var base_unit_instanced = loaded_base_unit.instantiate()
 	base_unit_instanced.unit_type = unit_type_holding
-	base_unit_instanced.global_position = ghost_position
 	units_node_container.add_child(base_unit_instanced)
+	base_unit_instanced.global_position = ghost_position
 	
 	player_cash -= base_unit_instanced.unit_price
 	cash_label.text = str(player_cash) + "€"
