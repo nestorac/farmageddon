@@ -44,7 +44,7 @@ func _physics_process(_delta):
 			
 		MOVEMENT_SELECTED:
 			$DEBUGLabel3D.text = "MOVEMENT_SELECTED"
-			print ("movement_left: ", movement_left)
+			#print ("movement_left: ", movement_left)
 			tray_material = decorative_tray.get_active_material(0)
 			movement_gizmo.show()
 			

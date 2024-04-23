@@ -46,39 +46,16 @@ func _ready():
 	movement_left = max_movement
 
 func initialize_unit_by_type():
-	match unit_type:
-		"Infantry":
-			strength = 80 # 1..100
-			dex = 50 # 1..100
-			intl = 50 # 1..100
-			def = 60 # 1..100
-			mov_spd = 5 # 0..10
-			unit_price = 50
-			$DEBUGLabel3D.text = "Infantry"
-		"Chivalry":
-			strength = 100 # 1..100
-			dex = 20 # 1..100
-			intl = 50 # 1..100
-			def = 40 # 1..100
-			mov_spd = 10 # 0..10
-			unit_price = 100
-			$DEBUGLabel3D.text = "Chivalry"
-		"Archery":
-			strength = 30 # 1..100
-			dex = 100 # 1..100
-			intl = 50 # 1..100
-			def = 30 # 1..100
-			mov_spd = 5 # 0..10
-			unit_price = 100
-			$DEBUGLabel3D.text = "Archery"
-		"Wizards":
-			strength = 20 # 1..100
-			dex = 50 # 1..100
-			intl = 100 # 1..100
-			def = 20 # 1..100
-			mov_spd = 3 # 0..10
-			unit_price = 150
-			$DEBUGLabel3D.text = "Wizards"
+	var unit_types_dict = GlobalGameFunctions.parse_json_to_dict("res://Data/en/unit_types.json")
+#	print(unit_types_dict[unit_type]["unit_price"])
+	
+	strength = int((unit_types_dict[unit_type]["strength"])) # 1..100
+	dex = int((unit_types_dict[unit_type]["dex"])) # 1..100
+	intl = int((unit_types_dict[unit_type]["intl"])) # 1..100
+	def = int((unit_types_dict[unit_type]["def"])) # 1..100
+	mov_spd = int((unit_types_dict[unit_type]["mov_spd"])) # 0..10
+	unit_price = int(unit_types_dict[unit_type]["unit_price"])
+	$DEBUGLabel3D.text = unit_type
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -88,7 +65,7 @@ func _physics_process(_delta):
 	match unit_state:			
 		MOVEMENT_SELECTED:
 			$DEBUGLabel3D.text = "MOVEMENT_SELECTED"
-			print ("movement_left: ", movement_left)
+			#print ("movement_left: ", movement_left)
 			tray_material = decorative_tray.get_active_material(0)
 			movement_gizmo.show()
 			

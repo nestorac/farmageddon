@@ -8,6 +8,12 @@ extends TextureButton
 
 
 func _ready() -> void:
+	var unit_types_dict = GlobalGameFunctions.parse_json_to_dict("res://Data/en/unit_types.json")
+	
+	print(unit_types_dict[unit_type]["unit_price"])
+	
+	unit_price = int(unit_types_dict[unit_type]["unit_price"])
+	
 	price_label .text = "$" + str(unit_price)
 
 

@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/main_game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalGameFunctions="*res://Scripts/global_game_functions.gd"
+
 [input]
 
 l_click={

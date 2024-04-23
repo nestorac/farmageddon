@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ao12k06au3q" path="res://Textures/pigs_btn_pressed.png" id="2_fevie"]
 [ext_resource type="Script" path="res://Scripts/deploy_unit_button.gd" id="3_yvcrf"]
 
-[node name="DeployUnitButton" type="TextureButton"]
+[node name="DeployUnitButton" type="TextureButton" groups=["deploy_unit_button"]]
 offset_right = 201.0
 offset_bottom = 48.0
 toggle_mode = true

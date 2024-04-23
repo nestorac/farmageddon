@@ -11,7 +11,7 @@ extends Node3D
 
 enum {DEPLOYMENT, COMMANDS, RESOLUTION}
 
-var player_cash:int = 1000
+var player_cash:int = 100
 var turn_state = int(DEPLOYMENT)
 var loaded_base_unit = load ("res://Scenes/base_unit.tscn")
 
@@ -66,5 +66,20 @@ func _on_unit_placed(unit_type_holding:String, ghost_position:Vector3):
 	units_node_container.add_child(base_unit_instanced)
 	base_unit_instanced.global_position = ghost_position
 	
-	player_cash -= base_unit_instanced.unit_price
+	substract_money(base_unit_instanced.unit_price)
+
+func add_money(amount:int) -> void:
+	player_cash += amount
 	cash_label.text = str(player_cash) + "€"
+	check_units_buttons_disabled()
+	
+func substract_money(amount:int) -> void:
+	player_cash -= amount
+	cash_label.text = str(player_cash) + "€"
+	check_units_buttons_disabled()
+	
+func check_units_buttons_disabled() -> void:
+	var buttons = get_tree().get_nodes_in_group("deploy_unit_button")
+	for button in buttons:
+		if button.unit_price > player_cash:
+			button.disabled = true

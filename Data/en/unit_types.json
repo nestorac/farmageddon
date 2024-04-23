@@ -1,0 +1,37 @@
+{
+"Infantry": {
+	"strength": "80",
+	"dex": "50",
+	"intl": "50",
+	"def": "60",
+	"mov_spd": "5",
+	"unit_price": "50"
+	},
+
+"Chivalry": {
+	"strength": "100",
+	"dex": "20",
+	"intl": "50",
+	"def": "40",
+	"mov_spd": "10",
+	"unit_price": "100"
+	},
+
+"Archery": {
+	"strength": "30",
+	"dex": "100",
+	"intl": "50",
+	"def": "30",
+	"mov_spd": "5",
+	"unit_price": "100"
+	},
+
+"Wizards": {
+	"strength": "20",
+	"dex": "50",
+	"intl": "100",
+	"def": "20",
+	"mov_spd": "3",
+	"unit_price": "150"
+	}
+}
