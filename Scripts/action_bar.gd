@@ -5,7 +5,7 @@ const MAX_ACTIONS = 15
 var action = load("res://Scenes/action_ui.tscn")
 
 @onready var h_box_container = $HBoxContainer
-@onready var main_game = $".."
+@export var main_game:Node3D
 
 func add_action(action_name:String, type:String, unit_id:int):
 	if h_box_container.get_child_count() >= MAX_ACTIONS:
@@ -14,6 +14,7 @@ func add_action(action_name:String, type:String, unit_id:int):
 	action_inst.action_name = action_name
 	action_inst.action_type = type
 	action_inst.unit_id = unit_id
+	
 	match action_inst.action_type:
 		"movement":
 			main_game.actions.movements.append(action_inst)

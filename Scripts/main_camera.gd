@@ -39,7 +39,8 @@ func _input(event):
 				unit_mesh_ghost.position = Vector3( hit.position.x, 1, hit.position.z )
 				
 		elif scene_manager.turn_state == scene_manager.RESOLUTION:
-			unit_mesh_ghost.mouse_target = hit.position
+			pass
+			#unit_mesh_ghost.mouse_target = hit.position
 			#print ("Mouse movement.")
 	if event.is_action_pressed("l_click"):
 		if scene_manager.turn_state == scene_manager.DEPLOYMENT:

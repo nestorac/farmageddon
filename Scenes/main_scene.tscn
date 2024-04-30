@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://b06qil0jy7lbk"]
+[gd_scene load_steps=18 format=3 uid="uid://b06qil0jy7lbk"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene_manager.gd" id="1_m7d72"]
 [ext_resource type="PackedScene" uid="uid://c665ans4ss0yc" path="res://Scenes/deploy_unit_button.tscn" id="2_tonhx"]
 [ext_resource type="Texture2D" uid="uid://c5bfonfbtykcc" path="res://Textures/pigs_button_grey.png" id="3_le630"]
 [ext_resource type="Script" path="res://Scripts/main_camera.gd" id="4_jfmjx"]
+[ext_resource type="Script" path="res://Scripts/select_unit_ui.gd" id="4_vb37i"]
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="6_sw238"]
 [ext_resource type="PackedScene" uid="uid://d3omlsfokgwvt" path="res://Scenes/destination_icon.tscn" id="7_l0ybc"]
+[ext_resource type="PackedScene" uid="uid://bhk2wxd2cooy2" path="res://Scenes/action_bar.tscn" id="7_p4ndx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7xnf"]
 albedo_color = Color(0, 0.258824, 0, 1)
@@ -38,9 +40,14 @@ albedo_color = Color(0.768627, 0.384314, 0, 1)
 material = SubResource("StandardMaterial3D_kcs6e")
 size = Vector3(4, 1, 1)
 
-[node name="Main Scene" type="Node3D" node_paths=PackedStringArray("units_node_container")]
+[node name="Main Scene" type="Node3D" node_paths=PackedStringArray("select_units_ui", "cash_label", "game_state_ui", "units_node_container", "canvas_ui", "action_bar")]
 script = ExtResource("1_m7d72")
+select_units_ui = NodePath("CanvasUI/SelectUnitUI")
+cash_label = NodePath("CanvasUI/SelectUnitUI/CashLabel")
+game_state_ui = NodePath("CanvasUI/GameStateUI")
 units_node_container = NodePath("UnitsNodeContainer")
+canvas_ui = NodePath("CanvasUI")
+action_bar = NodePath("CanvasUI/ActionBar")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 62.8657, -0.515633)
@@ -53,71 +60,6 @@ mesh = SubResource("BoxMesh_qiqt7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7aaou")
-
-[node name="SelectUnitUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="BackgroundWindow" type="ColorRect" parent="SelectUnitUI"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 208.0
-grow_vertical = 2
-color = Color(0.443137, 0.443137, 0.443137, 0.443137)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SelectUnitUI/BackgroundWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DeployUnitButton" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
-layout_mode = 2
-size_flags_vertical = 3
-texture_disabled = ExtResource("3_le630")
-stretch_mode = 4
-camera = NodePath("../../../../MainCamera")
-
-[node name="DeployUnitButton2" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
-layout_mode = 2
-size_flags_vertical = 3
-texture_disabled = ExtResource("3_le630")
-stretch_mode = 4
-unit_type = "Archery"
-camera = NodePath("../../../../MainCamera")
-
-[node name="DeployUnitButton3" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
-layout_mode = 2
-size_flags_vertical = 3
-texture_disabled = ExtResource("3_le630")
-stretch_mode = 4
-unit_type = "Chivalry"
-camera = NodePath("../../../../MainCamera")
-
-[node name="DeployUnitButton4" parent="SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
-layout_mode = 2
-size_flags_vertical = 3
-texture_disabled = ExtResource("3_le630")
-stretch_mode = 4
-unit_type = "Wizards"
-camera = NodePath("../../../../MainCamera")
-
-[node name="CashLabel" type="Label" parent="SelectUnitUI"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "0€"
-horizontal_alignment = 2
 
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
@@ -136,7 +78,78 @@ mesh = SubResource("BoxMesh_l3anc")
 
 [node name="UnitsNodeContainer" type="Node3D" parent="."]
 
-[node name="UI" type="Control" parent="."]
+[node name="DestinationIcon" parent="." instance=ExtResource("7_l0ybc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="CanvasUI" type="CanvasLayer" parent="."]
+
+[node name="SelectUnitUI" type="Control" parent="CanvasUI" groups=["deployment"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("4_vb37i")
+
+[node name="BackgroundWindow" type="ColorRect" parent="CanvasUI/SelectUnitUI"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 208.0
+grow_vertical = 2
+color = Color(0.443137, 0.443137, 0.443137, 0.443137)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasUI/SelectUnitUI/BackgroundWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeployUnitButton" parent="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+texture_disabled = ExtResource("3_le630")
+stretch_mode = 4
+camera = NodePath("../../../../../MainCamera")
+
+[node name="DeployUnitButton2" parent="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+texture_disabled = ExtResource("3_le630")
+stretch_mode = 4
+unit_type = "Archery"
+camera = NodePath("../../../../../MainCamera")
+
+[node name="DeployUnitButton3" parent="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+texture_disabled = ExtResource("3_le630")
+stretch_mode = 4
+unit_type = "Chivalry"
+camera = NodePath("../../../../../MainCamera")
+
+[node name="DeployUnitButton4" parent="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer" node_paths=PackedStringArray("camera") instance=ExtResource("2_tonhx")]
+layout_mode = 2
+size_flags_vertical = 3
+texture_disabled = ExtResource("3_le630")
+stretch_mode = 4
+unit_type = "Wizards"
+camera = NodePath("../../../../../MainCamera")
+
+[node name="CashLabel" type="Label" parent="CanvasUI/SelectUnitUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0€"
+horizontal_alignment = 2
+
+[node name="GameStateUI" type="Control" parent="CanvasUI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,7 +159,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_sw238")
 
-[node name="TurnStateLabel" type="Label" parent="UI"]
+[node name="TurnStateLabel" type="Label" parent="CanvasUI/GameStateUI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -157,7 +170,7 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "STATE"
 
-[node name="NextStateButton" type="Button" parent="UI"]
+[node name="NextStateButton" type="Button" parent="CanvasUI/GameStateUI"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -170,11 +183,11 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Next"
 
-[node name="DestinationIcon" parent="." instance=ExtResource("7_l0ybc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+[node name="ActionBar" parent="CanvasUI" node_paths=PackedStringArray("main_game") instance=ExtResource("7_p4ndx")]
+main_game = NodePath("../..")
 
-[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" method="_on_toggled"]
-[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" method="_on_toggled"]
-[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" method="_on_toggled"]
-[connection signal="toggled" from="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton4" to="SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton4" method="_on_toggled"]
-[connection signal="button_up" from="UI/NextStateButton" to="UI" method="_on_next_state_button_button_up"]
+[connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" method="_on_toggled"]
+[connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" method="_on_toggled"]
+[connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" method="_on_toggled"]
+[connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton4" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton4" method="_on_toggled"]
+[connection signal="button_up" from="CanvasUI/GameStateUI/NextStateButton" to="CanvasUI/GameStateUI" method="_on_next_state_button_button_up"]

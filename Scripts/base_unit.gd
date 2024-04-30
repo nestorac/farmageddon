@@ -55,6 +55,7 @@ func initialize_unit_by_type():
 	def = int((unit_types_dict[unit_type]["def"])) # 1..100
 	mov_spd = int((unit_types_dict[unit_type]["mov_spd"])) # 0..10
 	unit_price = int(unit_types_dict[unit_type]["unit_price"])
+	
 	$DEBUGLabel3D.text = unit_type
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
