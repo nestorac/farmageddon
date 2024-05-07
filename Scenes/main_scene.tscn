@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b06qil0jy7lbk"]
+[gd_scene load_steps=20 format=3 uid="uid://b06qil0jy7lbk"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene_manager.gd" id="1_m7d72"]
 [ext_resource type="PackedScene" uid="uid://c665ans4ss0yc" path="res://Scenes/deploy_unit_button.tscn" id="2_tonhx"]
@@ -33,11 +33,18 @@ albedo_color = Color(0.00784314, 0.384314, 0.670588, 1)
 material = SubResource("StandardMaterial3D_ovort")
 size = Vector3(4, 1, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcs6e"]
-albedo_color = Color(0.768627, 0.384314, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ly5ti"]
+albedo_color = Color(0.225157, 0.600576, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_l3anc"]
-material = SubResource("StandardMaterial3D_kcs6e")
+[sub_resource type="BoxMesh" id="BoxMesh_xfsax"]
+material = SubResource("StandardMaterial3D_ly5ti")
+size = Vector3(4, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tp1ia"]
+albedo_color = Color(0.93894, 0, 0.218858, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iuy4l"]
+material = SubResource("StandardMaterial3D_tp1ia")
 size = Vector3(4, 1, 1)
 
 [node name="Main Scene" type="Node3D" node_paths=PackedStringArray("select_units_ui", "cash_label", "game_state_ui", "units_node_container", "canvas_ui", "action_bar")]
@@ -61,9 +68,10 @@ mesh = SubResource("BoxMesh_qiqt7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7aaou")
 
-[node name="MainCamera" type="Camera3D" parent="."]
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("unit_mesh_ghost")]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
 script = ExtResource("4_jfmjx")
+unit_mesh_ghost = NodePath("../UnitsGhostContainer/InfantryGhost")
 
 [node name="UnitsGhostContainer" type="Node3D" parent="."]
 
@@ -74,12 +82,16 @@ mesh = SubResource("BoxMesh_o1ghu")
 mesh = SubResource("BoxMesh_86b2h")
 
 [node name="ChivalryGhost" type="MeshInstance3D" parent="UnitsGhostContainer"]
-mesh = SubResource("BoxMesh_l3anc")
+mesh = SubResource("BoxMesh_xfsax")
+
+[node name="WizardsGhost" type="MeshInstance3D" parent="UnitsGhostContainer"]
+mesh = SubResource("BoxMesh_iuy4l")
 
 [node name="UnitsNodeContainer" type="Node3D" parent="."]
 
 [node name="DestinationIcon" parent="." instance=ExtResource("7_l0ybc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+visible = false
 
 [node name="CanvasUI" type="CanvasLayer" parent="."]
 

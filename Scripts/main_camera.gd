@@ -1,8 +1,8 @@
 extends Camera3D
 
 @onready var scene_manager = $".."
-@onready var unit_mesh_ghost = $"../UnitsGhostContainer/InfantryGhost"
 @onready var destination_icon = $"../DestinationIcon"
+@export var unit_mesh_ghost:MeshInstance3D
 
 var distance_from_camera = 100
 var is_unit_selected = false
@@ -56,36 +56,37 @@ func _input(event):
 			var hit = space_state.intersect_ray(query)
 			
 			if hit.size() != 0:
-				print (hit.collider)
 				if hit.collider.is_in_group("Units"):
 					var unit = hit.collider
 					print ("It is indeed in group Units.")
 					unit.unit_state = unit.MOVEMENT_SELECTED
+					scene_manager.action_bar.add_action("Movement", "movement", unit.unit_id, Vector3.ZERO)
 				else:
 					var units = get_tree().get_nodes_in_group("Units")
 					for unit in units:
 						unit.unit_state = unit.MOVEMENT_NOT_SELECTED
+						
 		elif scene_manager.turn_state == scene_manager.RESOLUTION:
 			print("Click on attack.")
 	
-	if event.is_action_pressed("r_click"):
-		if scene_manager.turn_state == scene_manager.COMMANDS:
-			if not unit_mesh_ghost.movement_gizmo.visible:
-				return
-			var from = project_ray_origin((event.position))
-			var to = from + project_ray_normal(event.position) * distance_from_camera
-			var space_state = get_world_3d().get_direct_space_state()
-			var query = PhysicsRayQueryParameters3D.create(from,to)
-			var hit = space_state.intersect_ray(query)
-			
-			unit_mesh_ghost.movement_left -= hit.position.distance_to(unit_mesh_ghost.position)
-		
-			#print ("Right click in movement!", hit)
-			unit_mesh_ghost.unit_state = unit_mesh_ghost.IN_MOVEMENT
-			unit_mesh_ghost.movement_target = unit_mesh_ghost.gizmo_end.global_position
-			destination_icon.global_position = unit_mesh_ghost.gizmo_end.global_position
-			destination_icon.show()
-			destination_icon.monitoring = true
+	#if event.is_action_pressed("r_click"):
+		#if scene_manager.turn_state == scene_manager.COMMANDS:
+			#if not unit_mesh_ghost.movement_gizmo.visible:
+				#return
+			#var from = project_ray_origin((event.position))
+			#var to = from + project_ray_normal(event.position) * distance_from_camera
+			#var space_state = get_world_3d().get_direct_space_state()
+			#var query = PhysicsRayQueryParameters3D.create(from,to)
+			#var hit = space_state.intersect_ray(query)
+			#
+			#unit_mesh_ghost.movement_left -= hit.position.distance_to(unit_mesh_ghost.position)
+		#
+			##print ("Right click in movement!", hit)
+			#unit_mesh_ghost.unit_state = unit_mesh_ghost.IN_MOVEMENT
+			#unit_mesh_ghost.movement_target = unit_mesh_ghost.gizmo_end.global_position
+			#destination_icon.global_position = unit_mesh_ghost.gizmo_end.global_position
+			#destination_icon.show()
+			#destination_icon.monitoring = true
 			
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false

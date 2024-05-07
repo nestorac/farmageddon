@@ -7,11 +7,12 @@ extends Node3D
 @export var game_state_ui:Control
 @export var units_node_container:Node3D
 @export var canvas_ui:CanvasLayer
-@export var action_bar:Control
+@export var action_bar:ActionBar
 
 enum {DEPLOYMENT, COMMANDS, RESOLUTION}
 
-var player_cash:int = 100
+var unit_count:int = 0
+var player_cash:int = 500
 var turn_state = int(DEPLOYMENT)
 var loaded_base_unit = load ("res://Scenes/base_unit.tscn")
 
@@ -63,6 +64,8 @@ func _on_unit_placed(unit_type_holding:String, ghost_position:Vector3):
 	print (unit_type_holding)
 	var base_unit_instanced = loaded_base_unit.instantiate()
 	base_unit_instanced.unit_type = unit_type_holding
+	base_unit_instanced.unit_id = unit_count
+	unit_count += 1
 	units_node_container.add_child(base_unit_instanced)
 	base_unit_instanced.global_position = ghost_position
 	

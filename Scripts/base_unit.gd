@@ -12,6 +12,7 @@ var movement_left = 20.0
 @onready var gizmo_end = $MovementGizmo/GizmoEnd
 
 @export var unit_type = "Infantry"
+@export var unit_id:int = 0
 
 var mouse_target = Vector3.ZERO
 var movement_target = Vector3.ZERO
@@ -60,7 +61,13 @@ func initialize_unit_by_type():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	match unit_state:
+		MOVEMENT_SELECTED:
+			pass
+		MOVEMENT_SELECTED:
+			pass
+		IN_MOVEMENT:
+			move_to(movement_target)
 
 func _physics_process(_delta):
 	match unit_state:			

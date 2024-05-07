@@ -5,6 +5,7 @@ class_name Action
 @export var action_icon:Texture2D
 @export var action_type:String = "movement" # movement, charge, spell, distance
 @export var unit_id:int = 0
+@export var movement_target:Vector3 = Vector3.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
