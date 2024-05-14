@@ -37,11 +37,15 @@ func add_action(action_name:String, type:String, unit_id:int, mov_target:Vector3
 		#add_action("test", "movement", 0)
 
 
-func _on_button_button_up():
+func _on_button_play_button_up():
+	var unit_nodes = get_tree().get_nodes_in_group("Units")
 	# Movements
 	for action_queued in h_box_container.get_child(0).get_children():
 		print(action_queued.name, " ", action_queued.action_name, " id: ",
 			  action_queued.unit_id, "target: ", action_queued.movement_target)
+		for unit_node in unit_nodes:
+			if action_queued.unit_id == unit_node.unit_id:
+				unit_node.start_action_move(action_queued.movement_target)
 		action_queued.queue_free()
 		
 	# Charges

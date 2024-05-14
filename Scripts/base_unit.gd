@@ -38,7 +38,7 @@ var poison = false # boolean
 enum {  MOVEMENT_SELECTED,
 		MOVEMENT_NOT_SELECTED, IN_MOVEMENT  }
 
-var unit_state = MOVEMENT_SELECTED
+var unit_state = MOVEMENT_NOT_SELECTED
 
 
 # Called when the node enters the scene tree for the first time.
@@ -69,38 +69,13 @@ func _process(_delta):
 		IN_MOVEMENT:
 			move_to(movement_target)
 
-func _physics_process(_delta):
-	match unit_state:			
-		MOVEMENT_SELECTED:
-			$DEBUGLabel3D.text = "MOVEMENT_SELECTED"
-			#print ("movement_left: ", movement_left)
-			tray_material = decorative_tray.get_active_material(0)
-			movement_gizmo.show()
-			
-			var distance_from_mouse = mouse_target.distance_to(position)
-			current_movement = min(distance_from_mouse, max_movement)
-			
-			if movement_left < 0:
-				movement_left = 0
-			
-			movement_gizmo.scale.z = min(distance_from_mouse, movement_left)
-			tray_material.albedo_color = Color.BLUE
-			movement_gizmo.look_at(mouse_target, Vector3.UP)
-			movement_gizmo.rotation_degrees.x = 0
-			
-		MOVEMENT_NOT_SELECTED:
-			$DEBUGLabel3D.text = "MOVEMENT_NOT_SELECTED"
-			tray_material = decorative_tray.get_active_material(0)
-			movement_gizmo.hide()
-			tray_material.albedo_color = Color.WHITE
-		
-		IN_MOVEMENT:
-			$DEBUGLabel3D.text = "IN_MOVEMENT"
-			move_to (movement_target)
-			movement_gizmo.hide()
-			
 
-func move_to(target):
+func start_action_move(target:Vector3):
+	movement_target = target
+	unit_state = IN_MOVEMENT
+
+
+func move_to(target:Vector3):
 	var direction = (target - global_position).normalized()
 	
 	if direction:

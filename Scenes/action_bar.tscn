@@ -38,7 +38,7 @@ layout_mode = 2
 [node name="Spells" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="ButtonPlay" type="Button" parent="."]
 layout_mode = 0
 offset_left = 992.0
 offset_top = 65.0
@@ -61,6 +61,6 @@ text = "Movement"
 layout_mode = 2
 text = "Spell"
 
-[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="ButtonPlay" to="." method="_on_button_play_button_up"]
 [connection signal="button_up" from="DebugButtons/ButtonMovement" to="." method="_on_button_movement_button_up"]
 [connection signal="button_up" from="DebugButtons/ButtonSpell" to="." method="_on_button_spell_button_up"]
