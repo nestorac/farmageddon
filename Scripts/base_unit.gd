@@ -16,7 +16,7 @@ var movement_left = 20.0
 
 var mouse_target = Vector3.ZERO
 var movement_target = Vector3.ZERO
-var tray_material
+var is_selected:bool = false
 
 # Stats
 var strength:int = 0 # 1..100
@@ -59,8 +59,15 @@ func initialize_unit_by_type():
 	
 	$DEBUGLabel3D.text = unit_type
 
+func select_this_unit() -> void:
+	var tray_material = decorative_tray.get_active_material(0)
+	is_selected = true
+	tray_material.albedo_color = Color.BLUE
+	# For next class.
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	print (is_selected)
 	match unit_state:
 		MOVEMENT_SELECTED:
 			pass
