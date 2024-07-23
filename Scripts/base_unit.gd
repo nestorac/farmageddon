@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 @onready var decorative_tray = $DecorativeTray
 @onready var movement_gizmo = $MovementGizmo
+@onready var main_camera:Node = get_tree().get_first_node_in_group("main_camera")
 
 @onready var max_movement = 20.0
 var current_movement = 0.0
@@ -14,7 +15,7 @@ var movement_left = 20.0
 @export var unit_type = "Infantry"
 @export var unit_id:int = 0
 
-var mouse_target = Vector3.ZERO
+var mouse_ray_hit = Vector3.ZERO
 var movement_target = Vector3.ZERO
 var is_selected:bool = false
 
@@ -46,6 +47,7 @@ func _ready():
 	initialize_unit_by_type()
 	movement_left = max_movement
 
+
 func initialize_unit_by_type():
 	var unit_types_dict = GlobalGameFunctions.parse_json_to_dict("res://Data/en/unit_types.json")
 #	print(unit_types_dict[unit_type]["unit_price"])
@@ -63,11 +65,11 @@ func select_this_unit() -> void:
 	var tray_material = decorative_tray.get_active_material(0)
 	is_selected = true
 	tray_material.albedo_color = Color.BLUE
-	# For next class.
+	movement_gizmo.show_gizmo()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	print (is_selected)
+	#print (is_selected)
 	match unit_state:
 		MOVEMENT_SELECTED:
 			pass

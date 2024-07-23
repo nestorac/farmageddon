@@ -68,7 +68,7 @@ mesh = SubResource("BoxMesh_qiqt7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7aaou")
 
-[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("unit_mesh_ghost")]
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("unit_mesh_ghost") groups=["main_camera"]]
 transform = Transform3D(1, 0, 0, 0, 0.0635396, 0.997979, 0, -0.997979, 0.0635396, 0, 13.8657, -0.515633)
 script = ExtResource("4_jfmjx")
 unit_mesh_ghost = NodePath("../UnitsGhostContainer/InfantryGhost")

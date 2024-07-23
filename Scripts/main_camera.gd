@@ -8,6 +8,7 @@ var distance_from_camera = 100
 var is_unit_selected = false
 var is_unit_positioned = false
 var picked_unit_type:String = "None"
+var mouse_ray_hit:Dictionary = {}
 
 signal unit_placed
 	
@@ -30,6 +31,8 @@ func _input(event):
 		var query = PhysicsRayQueryParameters3D.create(from,to)
 		var hit = space_state.intersect_ray(query)
 		
+		mouse_ray_hit = hit
+		
 		if not is_unit_selected and scene_manager.turn_state == scene_manager.DEPLOYMENT:
 			return
 			
@@ -44,6 +47,7 @@ func _input(event):
 		var space_state = get_world_3d().get_direct_space_state()
 		var query = PhysicsRayQueryParameters3D.create(from,to)
 		var hit = space_state.intersect_ray(query)
+		
 		if hit.size() != 0:
 			if hit.collider.is_in_group("Units"):
 				var unit_deployed:BaseUnit = hit.collider
@@ -57,3 +61,7 @@ func _input(event):
 func set_unit_mesh_ghost(unit_type:String) -> void:
 	picked_unit_type = unit_type
 	unit_mesh_ghost = get_node("../UnitsGhostContainer/" + unit_type + "Ghost")
+
+
+func get_update_mouse_ray_hit() -> Dictionary:
+	return mouse_ray_hit
