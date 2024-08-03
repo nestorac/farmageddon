@@ -86,3 +86,7 @@ func check_units_buttons_disabled() -> void:
 	for button in buttons:
 		if button.unit_price > player_cash:
 			button.disabled = true
+
+
+func _on_main_camera_click_on_walkable_for_unit(action_name, type, unit_id, mov_target):
+	action_bar.add_action(action_name, type, unit_id, mov_target)

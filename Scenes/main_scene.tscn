@@ -63,7 +63,7 @@ shadow_enabled = true
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_qiqt7")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" groups=["Walkable"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7aaou")
@@ -202,6 +202,7 @@ text = "Next"
 [node name="ActionBar" parent="CanvasUI" node_paths=PackedStringArray("main_game") instance=ExtResource("7_p4ndx")]
 main_game = NodePath("../..")
 
+[connection signal="click_on_walkable_for_unit" from="MainCamera" to="." method="_on_main_camera_click_on_walkable_for_unit"]
 [connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton" method="_on_toggled"]
 [connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton2" method="_on_toggled"]
 [connection signal="toggled" from="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" to="CanvasUI/SelectUnitUI/BackgroundWindow/VBoxContainer/DeployUnitButton3" method="_on_toggled"]

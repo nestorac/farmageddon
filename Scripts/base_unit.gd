@@ -36,10 +36,10 @@ var poison = false # boolean
 # We can add different variables for different stats
 
 
-enum {  MOVEMENT_SELECTED,
+enum STATES {  MOVEMENT_SELECTED,
 		MOVEMENT_NOT_SELECTED, IN_MOVEMENT  }
 
-var unit_state = MOVEMENT_NOT_SELECTED
+var unit_state = STATES.MOVEMENT_NOT_SELECTED
 
 
 # Called when the node enters the scene tree for the first time.
@@ -61,27 +61,43 @@ func initialize_unit_by_type():
 	
 	$DEBUGLabel3D.text = unit_type
 
-func select_this_unit() -> void:
+func _select_this_unit_for_action() -> void:
 	var tray_material = decorative_tray.get_active_material(0)
 	is_selected = true
 	tray_material.albedo_color = Color.BLUE
 	movement_gizmo.show_gizmo()
 
+
+func switch_unit_state(new_state:STATES) -> void:
+	unit_state = new_state
+	match unit_state:
+		STATES.MOVEMENT_SELECTED:
+			_select_this_unit_for_action()
+			$DebugState.text = "Selected for movement."
+			pass
+		STATES.MOVEMENT_NOT_SELECTED:
+			$DebugState.text = "NOT selected for movement."
+			pass
+		STATES.IN_MOVEMENT:
+			$DebugState.text = "In movement."
+	#TODO: Add signal if necessary to alert other nodes when the unit changes its state.
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	#print (is_selected)
 	match unit_state:
-		MOVEMENT_SELECTED:
+		STATES.MOVEMENT_SELECTED:
 			pass
-		MOVEMENT_SELECTED:
+		STATES.MOVEMENT_NOT_SELECTED:
 			pass
-		IN_MOVEMENT:
+		STATES.IN_MOVEMENT:
 			move_to(movement_target)
 
 
 func start_action_move(target:Vector3):
 	movement_target = target
-	unit_state = IN_MOVEMENT
+	switch_unit_state(BaseUnit.STATES.IN_MOVEMENT)
 
 
 func move_to(target:Vector3):

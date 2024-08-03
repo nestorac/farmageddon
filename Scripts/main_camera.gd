@@ -10,8 +10,11 @@ var is_unit_positioned = false
 var picked_unit_type:String = "None"
 var mouse_ray_hit:Dictionary = {}
 
+var _current_unit_selected:BaseUnit
+
 signal unit_placed
-	
+signal click_on_walkable_for_unit(action_name:String, type:String, unit_id:int, mov_target:Vector3)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,7 +54,20 @@ func _input(event):
 		if hit.size() != 0:
 			if hit.collider.is_in_group("Units"):
 				var unit_deployed:BaseUnit = hit.collider
-				unit_deployed.select_this_unit()
+				unit_deployed.switch_unit_state(BaseUnit.STATES.MOVEMENT_SELECTED)
+				_current_unit_selected = unit_deployed
+	
+	# Right click when selected unit to choose movement or any other action.
+	if event.is_action_released("r_click") and scene_manager.turn_state == scene_manager.COMMANDS:
+		if not _current_unit_selected: return
+		var from = project_ray_origin((event.position))
+		var to = from + project_ray_normal(event.position) * distance_from_camera
+		var space_state = get_world_3d().get_direct_space_state()
+		var query = PhysicsRayQueryParameters3D.create(from,to)
+		var hit = space_state.intersect_ray(query)
+		if hit.size() != 0:
+			if hit.collider.is_in_group("Walkable"):
+				emit_signal("click_on_walkable_for_unit", "Movement", "movement", _current_unit_selected.unit_id, hit.position)
 		
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false
