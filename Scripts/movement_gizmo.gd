@@ -3,9 +3,7 @@ extends Node3D
 @onready var green_line_mesh:MeshInstance3D = $GreenLineMesh
 @onready var gizmo_end:MeshInstance3D = $GizmoEnd
 @onready var parent_unit:BaseUnit = $".."
-
-func show_gizmo() -> void:
-	show()
+	
 	
 func _process(delta:float) -> void:
 	if not visible:

@@ -67,7 +67,9 @@ func _input(event):
 		var hit = space_state.intersect_ray(query)
 		if hit.size() != 0:
 			if hit.collider.is_in_group("Walkable"):
+				_current_unit_selected.switch_unit_state(BaseUnit.STATES.ACTION_QUEUED)
 				emit_signal("click_on_walkable_for_unit", "Movement", "movement", _current_unit_selected.unit_id, hit.position)
+				_current_unit_selected = null
 		
 	if event.is_action_released("l_click") and is_unit_selected:
 		is_unit_selected = false

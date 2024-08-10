@@ -2,7 +2,8 @@ class_name BaseUnit
 
 extends CharacterBody3D
 
-@onready var decorative_tray = $DecorativeTray
+@onready var decorative_tray_not_selected:MeshInstance3D = $DecorativeTray_NotSelected
+@onready var decorative_tray_selected:MeshInstance3D = $DecorativeTray_Selected
 @onready var movement_gizmo = $MovementGizmo
 @onready var main_camera:Node = get_tree().get_first_node_in_group("main_camera")
 
@@ -36,8 +37,8 @@ var poison = false # boolean
 # We can add different variables for different stats
 
 
-enum STATES {  MOVEMENT_SELECTED,
-		MOVEMENT_NOT_SELECTED, IN_MOVEMENT  }
+enum STATES {  MOVEMENT_SELECTED, ACTION_QUEUED,
+		MOVEMENT_NOT_SELECTED, IN_MOVEMENT }
 
 var unit_state = STATES.MOVEMENT_NOT_SELECTED
 
@@ -61,20 +62,30 @@ func initialize_unit_by_type():
 	
 	$DEBUGLabel3D.text = unit_type
 
-func _select_this_unit_for_action() -> void:
-	var tray_material = decorative_tray.get_active_material(0)
+func _select_unit() -> void:
 	is_selected = true
-	tray_material.albedo_color = Color.BLUE
-	movement_gizmo.show_gizmo()
+	decorative_tray_not_selected.hide()
+	decorative_tray_selected.show()
+	movement_gizmo.show()
 
+
+func _deselect_unit() -> void:
+	is_selected = false
+	decorative_tray_selected.hide()
+	decorative_tray_not_selected.show()
+	movement_gizmo.hide()
+	
 
 func switch_unit_state(new_state:STATES) -> void:
 	unit_state = new_state
 	match unit_state:
 		STATES.MOVEMENT_SELECTED:
-			_select_this_unit_for_action()
+			_select_unit()
 			$DebugState.text = "Selected for movement."
 			pass
+		STATES.ACTION_QUEUED:
+			$DebugState.text = "Action queued."
+			_deselect_unit()
 		STATES.MOVEMENT_NOT_SELECTED:
 			$DebugState.text = "NOT selected for movement."
 			pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjt23vvc5jj4f"]
+[gd_scene load_steps=12 format=3 uid="uid://cjt23vvc5jj4f"]
 
 [ext_resource type="Script" path="res://Scripts/base_unit.gd" id="1_bl0si"]
 [ext_resource type="PackedScene" uid="uid://b3elpywltfkes" path="res://Models/pig.gltf" id="2_oaxbs"]
@@ -9,6 +9,14 @@ shading_mode = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_i2mkj"]
 material = SubResource("StandardMaterial3D_2kpud")
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yx63e"]
+shading_mode = 0
+albedo_color = Color(0.443137, 0.431373, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_es3hi"]
+material = SubResource("StandardMaterial3D_yx63e")
 size = Vector3(4, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fer62"]
@@ -30,8 +38,12 @@ transform = Transform3D(0.999821, 0, -0.0189008, 0, 1, 0, 0.0189008, 0, 0.999821
 motion_mode = 1
 script = ExtResource("1_bl0si")
 
-[node name="DecorativeTray" type="MeshInstance3D" parent="."]
+[node name="DecorativeTray_NotSelected" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_i2mkj")
+
+[node name="DecorativeTray_Selected" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_es3hi")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500685, 0)
