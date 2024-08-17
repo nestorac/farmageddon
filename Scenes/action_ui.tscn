@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bh24nh3p0um55" path="res://icon.svg" id="1_5ijfe"]
 [ext_resource type="Script" path="res://Scripts/action_ui.gd" id="1_sbk8s"]
 
-[node name="ActionUI" type="Panel"]
+[node name="ActionUI" type="Panel" groups=["Action"]]
 clip_contents = true
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0

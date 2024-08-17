@@ -8,6 +8,14 @@ var action = load("res://Scenes/action_ui.tscn")
 @export var main_game:Node3D
 
 func add_action(action_name:String, type:String, unit_id:int, mov_target:Vector3):
+	# If there is one action for that unit, return.
+	
+	var _actions = _get_actions_in_bar()
+	for _action in _actions:
+		if _action.unit_id == unit_id:
+			_action.queue_free()
+			# TODO: Add animation for substitution of the action.
+	
 	if h_box_container.get_child_count() >= MAX_ACTIONS:
 		return
 	var action_inst = action.instantiate()
@@ -30,6 +38,9 @@ func add_action(action_name:String, type:String, unit_id:int, mov_target:Vector3
 			main_game.actions.spells.append(action_inst)
 			h_box_container.get_child(3).add_child(action_inst)
 		
+func _get_actions_in_bar() -> Array:
+	var _actions:Array = get_tree().get_nodes_in_group("Action")
+	return _actions
 
 # For debugging.
 #func _input(event):

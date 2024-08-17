@@ -15,4 +15,3 @@ func _ready():
 	else:
 		print ("Action icon is not valid.")
 	pass # Replace with function body.
-
