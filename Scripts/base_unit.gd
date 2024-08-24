@@ -7,6 +7,8 @@ extends CharacterBody3D
 @onready var movement_gizmo = $MovementGizmo
 @onready var main_camera:Node = get_tree().get_first_node_in_group("main_camera")
 
+@onready var navigation_agent:NavigationAgent3D = $NavigationAgent3D
+
 @onready var max_movement = 20.0
 var current_movement = 0.0
 var movement_left = 20.0
@@ -47,6 +49,11 @@ var unit_state = STATES.MOVEMENT_NOT_SELECTED
 func _ready():
 	initialize_unit_by_type()
 	movement_left = max_movement
+	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+
+
+func set_movement_target(movement_target: Vector3):
+	navigation_agent.set_target_position(movement_target)
 
 
 func initialize_unit_by_type():
@@ -95,7 +102,7 @@ func switch_unit_state(new_state:STATES) -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _physics_process(delta: float) -> void:
 	#print (is_selected)
 	match unit_state:
 		STATES.MOVEMENT_SELECTED:
@@ -103,12 +110,29 @@ func _process(_delta):
 		STATES.MOVEMENT_NOT_SELECTED:
 			pass
 		STATES.IN_MOVEMENT:
-			move_to(movement_target)
+			nav_movement()
+			#move_to(movement_target)
 
 
 func start_action_move(target:Vector3):
 	movement_target = target
+	set_movement_target(target)
 	switch_unit_state(BaseUnit.STATES.IN_MOVEMENT)
+
+
+func nav_movement() -> void:
+	# Do not query when the map has never synchronized and is empty.
+	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
+		return
+	if navigation_agent.is_navigation_finished():
+		return
+
+	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * mov_spd
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
+	else:
+		_on_velocity_computed(new_velocity)
 
 
 func move_to(target:Vector3):
@@ -117,4 +141,9 @@ func move_to(target:Vector3):
 	if direction:
 		velocity.x = direction.x * mov_spd
 		velocity.z = direction.z * mov_spd
+	move_and_slide()
+	
+	
+func _on_velocity_computed(safe_velocity: Vector3):
+	velocity = safe_velocity
 	move_and_slide()

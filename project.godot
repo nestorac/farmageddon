@@ -35,3 +35,4 @@ r_click={
 [layer_names]
 
 3d_physics/layer_1="Floor"
+3d_physics/layer_2="Units"
