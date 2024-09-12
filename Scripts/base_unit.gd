@@ -2,10 +2,13 @@ class_name BaseUnit
 
 extends CharacterBody3D
 
+signal action_finished
+
 @onready var decorative_tray_not_selected:MeshInstance3D = $DecorativeTray_NotSelected
 @onready var decorative_tray_selected:MeshInstance3D = $DecorativeTray_Selected
 @onready var movement_gizmo = $MovementGizmo
 @onready var main_camera:Node = get_tree().get_first_node_in_group("main_camera")
+@onready var main_scene:Node = get_tree().get_first_node_in_group("main_scene_manager")
 
 @onready var navigation_agent:NavigationAgent3D = $NavigationAgent3D
 
@@ -50,6 +53,8 @@ func _ready():
 	initialize_unit_by_type()
 	movement_left = max_movement
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	
+	action_finished.connect(Callable(main_scene, "_on_action_finished"))
 
 
 func set_movement_target(movement_target: Vector3):
@@ -125,6 +130,8 @@ func nav_movement() -> void:
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
 	if navigation_agent.is_navigation_finished():
+		emit_signal("action_finished")
+		unit_state = STATES.MOVEMENT_NOT_SELECTED
 		return
 
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()

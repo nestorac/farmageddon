@@ -90,3 +90,8 @@ func check_units_buttons_disabled() -> void:
 
 func _on_main_camera_click_on_walkable_for_unit(action_name, type, unit_id, mov_target):
 	action_bar.add_action(action_name, type, unit_id, mov_target)
+
+func _on_action_finished() -> void:
+	action_bar.clear_first_action()
+	action_bar.do_first_action()
+#	print ("ACTION FINISHED!")
