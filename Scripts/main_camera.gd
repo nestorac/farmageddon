@@ -54,6 +54,9 @@ func _input(event):
 		if hit.size() != 0:
 			if hit.collider.is_in_group("Units"):
 				var unit_deployed:BaseUnit = hit.collider
+				# Debugging
+				if unit_deployed.unit_owner != "Player_1":
+					return
 				unit_deployed.switch_unit_state(BaseUnit.STATES.MOVEMENT_SELECTED)
 				_current_unit_selected = unit_deployed
 	

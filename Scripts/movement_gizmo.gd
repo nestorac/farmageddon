@@ -13,6 +13,6 @@ func _process(delta:float) -> void:
 		return
 	var mouse_hit_position = mouse_hit.position
 	var distance_from_mouse = mouse_hit_position.distance_to(global_position)
-	scale.z = min (distance_from_mouse, 10.0)
+	scale.z = min (distance_from_mouse, parent_unit.max_movement)
 	look_at (mouse_hit_position, Vector3.UP)
 	#print (mouse_hit_position)

@@ -4,23 +4,13 @@ extends CharacterBody3D
 
 signal action_finished
 
-@onready var decorative_tray_not_selected:MeshInstance3D = $DecorativeTray_NotSelected
-@onready var decorative_tray_selected:MeshInstance3D = $DecorativeTray_Selected
-@onready var movement_gizmo = $MovementGizmo
-@onready var main_camera:Node = get_tree().get_first_node_in_group("main_camera")
-@onready var main_scene:Node = get_tree().get_first_node_in_group("main_scene_manager")
-
-@onready var navigation_agent:NavigationAgent3D = $NavigationAgent3D
-
-@onready var max_movement = 20.0
-var current_movement = 0.0
-var movement_left = 20.0
-
-@onready var gizmo_end = $MovementGizmo/GizmoEnd
-
 @export var unit_type = "Infantry"
 @export var unit_id:int = 0
+@export var unit_owner:String = "Player_1"
+@export var max_movement = 20.0
 
+var current_movement = 0.0
+var movement_left = 20.0
 var mouse_ray_hit = Vector3.ZERO
 var movement_target = Vector3.ZERO
 var is_selected:bool = false
@@ -41,6 +31,15 @@ var poison = false # boolean
 
 # We can add different variables for different stats
 
+@onready var decorative_tray_not_selected:MeshInstance3D = $DecorativeTray_NotSelected
+@onready var decorative_tray_selected:MeshInstance3D = $DecorativeTray_Selected
+@onready var movement_gizmo = $MovementGizmo
+@onready var main_camera:Node = get_tree().get_first_node_in_group("main_camera")
+@onready var main_scene:Node = get_tree().get_first_node_in_group("main_scene_manager")
+@onready var navigation_agent:NavigationAgent3D = $NavigationAgent3D
+@onready var gizmo_end = $MovementGizmo/GizmoEnd
+@onready var stamina_bar: ProgressBar = $StaminaBar
+
 
 enum STATES {  MOVEMENT_SELECTED, ACTION_QUEUED,
 		MOVEMENT_NOT_SELECTED, IN_MOVEMENT }
@@ -56,6 +55,8 @@ func _ready():
 	
 	action_finished.connect(Callable(main_scene, "_on_action_finished"))
 
+	stamina_bar.max_value = max_movement
+	stamina_bar.value = movement_left
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)
@@ -115,6 +116,10 @@ func _physics_process(delta: float) -> void:
 		STATES.MOVEMENT_NOT_SELECTED:
 			pass
 		STATES.IN_MOVEMENT:
+			var distance_to_target = global_position.distance_to(movement_target)
+			movement_left = distance_to_target
+			stamina_bar.value = movement_left
+			print (distance_to_target)9
 			nav_movement()
 			#move_to(movement_target)
 
