@@ -119,7 +119,7 @@ func _physics_process(delta: float) -> void:
 			var distance_to_target = global_position.distance_to(movement_target)
 			movement_left = distance_to_target
 			stamina_bar.value = movement_left
-			print (distance_to_target)9
+			print (distance_to_target)
 			nav_movement()
 			#move_to(movement_target)
 
