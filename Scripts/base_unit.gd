@@ -9,8 +9,9 @@ signal action_finished
 @export var unit_owner:String = "Player_1"
 @export var max_movement = 20.0
 
-var current_movement = 0.0
 var movement_left = 20.0
+var distance_total_click = 0.0
+
 var mouse_ray_hit = Vector3.ZERO
 var movement_target = Vector3.ZERO
 var is_selected:bool = false
@@ -117,14 +118,14 @@ func _physics_process(delta: float) -> void:
 			pass
 		STATES.IN_MOVEMENT:
 			var distance_to_target = global_position.distance_to(movement_target)
-			movement_left = distance_to_target
-			stamina_bar.value = movement_left
-			print (distance_to_target)
+			stamina_bar.value = max_movement - (distance_total_click - distance_to_target)
 			nav_movement()
-			#move_to(movement_target)
+			if distance_total_click - distance_to_target >= max_movement:
+				switch_unit_state(STATES.MOVEMENT_NOT_SELECTED)
 
 
 func start_action_move(target:Vector3):
+	distance_total_click = global_position.distance_to(target)
 	movement_target = target
 	set_movement_target(target)
 	switch_unit_state(BaseUnit.STATES.IN_MOVEMENT)

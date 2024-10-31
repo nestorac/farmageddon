@@ -59,6 +59,8 @@ func _get_actions_in_bar() -> Array:
 func do_first_action() -> void:
 	var unit_nodes = get_tree().get_nodes_in_group("Units")
 	#for movement
+	if movements_container.get_child_count() <= 0:
+		return
 	var first_action = movements_container.get_child(0)
 	if not first_action:
 		return
