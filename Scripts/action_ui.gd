@@ -20,10 +20,13 @@ func _ready():
 
 
 func _on_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("l_click"):
-		is_selected = not is_selected
-		if is_selected:
+	if event is InputEventMouseButton:
+		var _action_ghost = get_tree().get_first_node_in_group("action_ghost")
+		if event.pressed:
+			is_selected = true
 			$TextureRect.self_modulate = Color.RED
+			_action_ghost.show()
 		else:
+			is_selected = false
 			$TextureRect.self_modulate = Color.WHITE
-		print ("clicked")
+			_action_ghost.hide()
