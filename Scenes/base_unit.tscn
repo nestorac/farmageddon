@@ -92,6 +92,7 @@ text = "Estado"
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="StaminaBar" type="ProgressBar" parent="."]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

@@ -56,8 +56,13 @@ func _ready():
 	
 	action_finished.connect(Callable(main_scene, "_on_action_finished"))
 
+	restart_stamina_bar_gui()
+
+
+func restart_stamina_bar_gui():
 	stamina_bar.max_value = max_movement
 	stamina_bar.value = movement_left
+
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)
@@ -94,16 +99,20 @@ func switch_unit_state(new_state:STATES) -> void:
 	unit_state = new_state
 	match unit_state:
 		STATES.MOVEMENT_SELECTED:
+			stamina_bar.hide()
 			_select_unit()
 			$DebugState.text = "Selected for movement."
 			pass
 		STATES.ACTION_QUEUED:
+			stamina_bar.hide()
 			$DebugState.text = "Action queued."
 			_deselect_unit()
 		STATES.MOVEMENT_NOT_SELECTED:
+			stamina_bar.hide()
 			$DebugState.text = "NOT selected for movement."
 			pass
 		STATES.IN_MOVEMENT:
+			stamina_bar.show()
 			$DebugState.text = "In movement."
 	#TODO: Add signal if necessary to alert other nodes when the unit changes its state.
 
@@ -136,8 +145,8 @@ func nav_movement() -> void:
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
 	if navigation_agent.is_navigation_finished():
+		switch_unit_state(STATES.MOVEMENT_NOT_SELECTED)
 		emit_signal("action_finished")
-		unit_state = STATES.MOVEMENT_NOT_SELECTED
 		return
 
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()

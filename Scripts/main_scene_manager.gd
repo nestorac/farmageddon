@@ -5,7 +5,8 @@ extends Node3D
 @export var select_units_ui:Control
 @export var cash_label:Label
 @export var game_state_ui:Control
-@export var units_node_container:Node3D
+@export var units_container_p1:UnitsContainer
+@export var units_container_p2:UnitsContainer
 @export var canvas_ui:CanvasLayer
 @export var action_bar:ActionBar
 
@@ -45,6 +46,8 @@ func match_turn_state() -> void:
 			game_state_ui.turn_state_label.text = "Commands"
 			action_bar.show()
 			game_state_ui.show()
+			units_container_p1.reset_units_gui()
+			units_container_p2.reset_units_gui()
 		RESOLUTION:
 			game_state_ui.turn_state_label.text = "Resolution"
 			game_state_ui.show()
@@ -66,7 +69,7 @@ func _on_unit_placed(unit_type_holding:String, ghost_position:Vector3):
 	base_unit_instanced.unit_type = unit_type_holding
 	base_unit_instanced.unit_id = unit_count
 	unit_count += 1
-	units_node_container.add_child(base_unit_instanced)
+	units_container_p1.add_child(base_unit_instanced)
 	base_unit_instanced.global_position = ghost_position
 	
 	substract_money(base_unit_instanced.unit_price)
