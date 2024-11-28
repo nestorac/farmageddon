@@ -9,13 +9,19 @@ extends Node3D
 @export var units_container_p2:UnitsContainer
 @export var canvas_ui:CanvasLayer
 @export var action_bar:ActionBar
+@export var players_in_match:Array[PLAYERS]
 
-enum {DEPLOYMENT, COMMANDS, RESOLUTION}
+enum {DEPLOYMENT, PLAY_CARDS, COMMANDS, RESOLUTION}
+enum PLAYERS {PLAYER_1, PLAYER_2, AI} # Later, AI_1 and AI_2, to play AI vs AI
 
 var unit_count:int = 0
 var player_cash:int = 500
 var turn_state = int(DEPLOYMENT)
+
+@onready var current_player = players_in_match[0]
+
 var loaded_base_unit = load ("res://Scenes/base_unit.tscn")
+var deployment_done = false # Flag to ensure deployment only happens once.
 
 var actions:Dictionary = {
 	"movements":[],
@@ -39,8 +45,15 @@ func match_turn_state() -> void:
 		
 	match turn_state:
 		DEPLOYMENT:
+			if deployment_done == true:
+				_on_next_turn_state()
+				return
 			game_state_ui.turn_state_label.text = "Deployment"
 			select_units_ui.show()
+			game_state_ui.show()
+			deployment_done = true
+		PLAY_CARDS:
+			game_state_ui.turn_state_label.text = "Play cards"
 			game_state_ui.show()
 		COMMANDS:
 			game_state_ui.turn_state_label.text = "Commands"
@@ -51,6 +64,10 @@ func match_turn_state() -> void:
 		RESOLUTION:
 			game_state_ui.turn_state_label.text = "Resolution"
 			game_state_ui.show()
+			var next_index = players_in_match.find(current_player) + 1
+			if next_index >= players_in_match.size():
+				next_index = 0
+			current_player = players_in_match[next_index]
 
 
 func _on_next_turn_state():
