@@ -6,7 +6,7 @@ signal action_finished
 
 @export var unit_type = "Infantry"
 @export var unit_id:int = 0
-@export var unit_owner:String = "Player_1"
+@export var unit_owner:int = 0
 @export var max_movement = 20.0
 
 var movement_left = 20.0

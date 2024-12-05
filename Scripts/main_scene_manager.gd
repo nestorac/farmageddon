@@ -9,6 +9,8 @@ extends Node3D
 @export var units_container_p2:UnitsContainer
 @export var canvas_ui:CanvasLayer
 @export var action_bar:ActionBar
+
+
 @export var players_in_match:Array[PLAYERS]
 
 enum {DEPLOYMENT, PLAY_CARDS, COMMANDS, RESOLUTION}
@@ -37,6 +39,7 @@ func _ready():
 	
 	cash_label.text = str(player_cash) + "€"
 	match_turn_state()
+	game_state_ui.update_turn_label(current_player)
 
 
 func match_turn_state() -> void:
@@ -64,17 +67,22 @@ func match_turn_state() -> void:
 		RESOLUTION:
 			game_state_ui.turn_state_label.text = "Resolution"
 			game_state_ui.show()
-			var next_index = players_in_match.find(current_player) + 1
-			if next_index >= players_in_match.size():
-				next_index = 0
-			current_player = players_in_match[next_index]
 
 
 func _on_next_turn_state():
 	turn_state += 1
 	if turn_state > int(RESOLUTION):
+		change_player_turn()
 		turn_state = int(DEPLOYMENT)
+		game_state_ui.update_turn_label(current_player)
 	match_turn_state()
+
+
+func change_player_turn() -> void:
+	var next_index = players_in_match.find(current_player) + 1
+	if next_index >= players_in_match.size():
+		next_index = 0
+	current_player = players_in_match[next_index]
 
 
 func _on_unit_placed(unit_type_holding:String, ghost_position:Vector3):
