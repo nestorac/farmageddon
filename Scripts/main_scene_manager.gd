@@ -17,7 +17,8 @@ enum {DEPLOYMENT, PLAY_CARDS, COMMANDS, RESOLUTION}
 enum PLAYERS {PLAYER_1, PLAYER_2, AI} # Later, AI_1 and AI_2, to play AI vs AI
 
 var unit_count:int = 0
-var player_cash:int = 500
+var player1_cash:int = 500
+var player2_cash:int = 500
 var turn_state = int(DEPLOYMENT)
 
 @onready var current_player = players_in_match[0]
@@ -37,7 +38,7 @@ func _ready():
 	camera.connect("unit_placed", _on_unit_placed)
 	game_state_ui.connect("next_turn_state", _on_next_turn_state)
 	
-	cash_label.text = str(player_cash) + "€"
+	cash_label.text = str(player1_cash) + "€"
 	match_turn_state()
 	game_state_ui.update_turn_label(current_player)
 
@@ -54,7 +55,10 @@ func match_turn_state() -> void:
 			game_state_ui.turn_state_label.text = "Deployment"
 			select_units_ui.show()
 			game_state_ui.show()
-			deployment_done = true
+			if current_player == players_in_match[1]:
+				check_units_buttons_disabled()
+				cash_label.text = str(player2_cash) + "€"
+				deployment_done = true
 		PLAY_CARDS:
 			game_state_ui.turn_state_label.text = "Play cards"
 			game_state_ui.show()
@@ -94,26 +98,52 @@ func _on_unit_placed(unit_type_holding:String, ghost_position:Vector3):
 	base_unit_instanced.unit_type = unit_type_holding
 	base_unit_instanced.unit_id = unit_count
 	unit_count += 1
+	# Tell him who is the unit owner, depending on the turn, and
+	base_unit_instanced.unit_owner = current_player
+	# aggregate it to th node container, depending on the turn.
+	
+	if current_player == 0:
+		units_container_p1.add_child(base_unit_instanced)
+	else:
+		units_container_p2.add_child(base_unit_instanced)
+	
 	units_container_p1.add_child(base_unit_instanced)
 	base_unit_instanced.global_position = ghost_position
 	
 	substract_money(base_unit_instanced.unit_price)
 
 func add_money(amount:int) -> void:
-	player_cash += amount
-	cash_label.text = str(player_cash) + "€"
+	if current_player == 0:
+		player1_cash += amount
+		cash_label.text = str(player1_cash) + "€"
+	else:
+		player2_cash += amount
+		cash_label.text = str(player2_cash) + "€"
 	check_units_buttons_disabled()
 	
 func substract_money(amount:int) -> void:
-	player_cash -= amount
-	cash_label.text = str(player_cash) + "€"
+	if current_player == 0:
+		player1_cash -= amount
+		cash_label.text = str(player1_cash) + "€"
+	else:
+		player2_cash -= amount
+		cash_label.text = str(player2_cash) + "€"
 	check_units_buttons_disabled()
 	
 func check_units_buttons_disabled() -> void:
 	var buttons = get_tree().get_nodes_in_group("deploy_unit_button")
+	
 	for button in buttons:
-		if button.unit_price > player_cash:
-			button.disabled = true
+		button.disabled = false
+	
+	if current_player == 0:
+		for button in buttons:
+			if button.unit_price > player1_cash:
+				button.disabled = true
+	else:
+		for button in buttons:
+			if button.unit_price > player2_cash:
+				button.disabled = true
 
 
 func _on_main_camera_click_on_walkable_for_unit(action_name, type, unit_id, mov_target):
